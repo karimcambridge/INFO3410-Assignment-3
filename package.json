@@ -2,9 +2,11 @@
   "name": "assignment_3",
   "version": "0.0.1",
   "description": "Anime Manager",
-  "main": "main.js",
+  "main": "js/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run clean",
+    "watch": "npm run clean",
+    "start": "node server"
   },
   "repository": {
     "type": "git",

@@ -12,7 +12,7 @@ if (typeof global !== "undefined" && typeof require !== "undefined"){ // to acco
         // reads records from pokemon.csv file and store each record as an instance of the Pokemon class
         // Each instance will be stored in the records attribute of the PKManager object
         readFile(){
-            const raw_data = fs.readFileSync(anime.csv).toString();
+            const raw_data = fs.readFileSync("assets/anime.csv");
             const raw_records_row = raw_data.split("\n");
 
             for(let i = 1; i < raw_record_rows.length; i+= 1){
