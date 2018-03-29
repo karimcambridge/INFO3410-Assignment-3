@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 class Anime{
 	constructor(anime_id, name, genre, type, episodes, rating, members){
 		this.anime_id = anime_id;
@@ -14,10 +16,9 @@ class Anime{
 
         //iterating the keys of an object
         for(let key in this){
-            str += "<td>"+ this[key] +"</td>" //access the value of that key in the object
+            str += "<td>"+ this[key] +"</td>"; //access the value of that key in the object
         }
-        str += "</tr>"
-
+        str += "</tr>";
         return str;
     }
 }

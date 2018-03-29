@@ -1,10 +1,12 @@
+/* jshint esversion: 6 */
+
 if (typeof global !== "undefined" && typeof require !== "undefined"){ // to accomodate difference between node and the browser
     const fs = require('fs');
     const Anime = require('anime').Anime;
 
     class AnimeManager{
         constructor(){
-            this.records = []
+            this.records = [];
         }
         
         // reads records from pokemon.csv file and store each record as an instance of the Pokemon class
