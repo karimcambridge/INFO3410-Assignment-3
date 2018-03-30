@@ -45,7 +45,11 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
         }
         
 <<<<<<< HEAD
+<<<<<<< HEAD
         // reads records from anime.csv file and store each record as an instance of the Anime class
+=======
+        // reads records from anime.csv file and store each record as an instance of the anime class
+>>>>>>> 8924a2fa9cecf70b19544bcae3f0f62e8cebf19b
 =======
         // reads records from anime.csv file and store each record as an instance of the anime class
 >>>>>>> 8924a2fa9cecf70b19544bcae3f0f62e8cebf19b
