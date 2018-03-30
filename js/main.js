@@ -1,10 +1,10 @@
 
 /* jshint esversion: 6 */
 
-console.log(typeof global);
+console.log("require is " + typeof require);
 
 if(typeof global !== "undefined" && typeof require !== "undefined") { // to accomodate difference between node and the browser
-	let AnimeManager = require('animeManger').AnimeManager;
+	let AnimeManager = require('animeManager').AnimeManager;
 
 	function insertTblData() {
 		AnimeManager.readFile();

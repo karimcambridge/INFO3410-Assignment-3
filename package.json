@@ -18,5 +18,7 @@
     "url": "https://github.com/karimcambridge/Assignment-3/issues"
   },
   "homepage": "https://github.com/karimcambridge/Assignment-3#readme",
-  "dependencies": {}
+  "dependencies": {
+    "browserify": "^16.1.1"
+  }
 }
