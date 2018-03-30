@@ -1,17 +1,17 @@
 /* jshint esversion: 6 */
 
-if (typeof global !== "undefined" && typeof require !== "undefined"){ // to accomodate difference between node and the browser
+if(typeof global !== "undefined" && typeof require !== "undefined") { // to accomodate difference between node and the browser
     const fs = require('fs');
-    const Anime = require('anime').Anime;
+    const Anime = require('../js/anime').Anime;
 
-    class AnimeManager{
-        constructor(){
+    class AnimeManager {
+        constructor() {
             this.records = [];
         }
         
         // reads records from pokemon.csv file and store each record as an instance of the Pokemon class
         // Each instance will be stored in the records attribute of the PKManager object
-        readFile(){
+        readFile() {
             const raw_data = fs.readFileSync("assets/anime.csv");
             const raw_records_row = raw_data.split("\n");
 
@@ -27,7 +27,7 @@ if (typeof global !== "undefined" && typeof require !== "undefined"){ // to acco
         } //end readFile
 
         //used the toHTMLRow method of each instance to create the table HTML string
-        generateTable(){
+        generateTable() {
             if(this.records.length < 1)
                 this.readFile();
             
@@ -45,15 +45,12 @@ if (typeof global !== "undefined" && typeof require !== "undefined"){ // to acco
         } //end generateTable
 
         //Uses the generateTable method and save the code generated to the file "table.html"
-        writeHTML(){
+        writeHTML() {
             let htmlStr = this.generateTable();
             fs.writeFileSync("table.html", htmlStr);
         }
     }
-}
-
-if(global && module && module.exports){
     module.exports = {
-        'AnimeManager': AnimeManager
+        AnimeManager: AnimeManager
     };
 }
