@@ -1,6 +1,6 @@
 /* jshint esversion: 6 */
 
-class Anime{
+class Anime {
 	constructor(anime_id, name, genre, type, episodes, rating, members){
 		this.anime_id = anime_id;
 		this.name = name;
@@ -11,7 +11,7 @@ class Anime{
 		this.members = members;
 	}
 
-	toHTMLRow(){
+	toHTMLRow() {
         let str = "<tr>";
 
         //iterating the keys of an object
@@ -23,7 +23,7 @@ class Anime{
     }
 }
 
-if(global && module && module.exports){
+if(global && module && module.exports) {
     module.exports = {
         'Anime': Anime
     };
