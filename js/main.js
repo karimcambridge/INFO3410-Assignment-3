@@ -11,6 +11,6 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 	console.log("AnimeManager is " + typeof testManager + "   testManager is " + testManager);
 
 	testManager.readFile();
-	testManager.writeHTML();
+	//testManager.writeHTML();
 	console.log("written to html");
 }

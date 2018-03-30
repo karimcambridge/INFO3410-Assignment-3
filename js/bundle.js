@@ -44,7 +44,20 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 			this.records = [];
 		}
 		
-		// Reads records from anime.csv file and store each record as an instance of the anime class
+		readFile() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function () {
+				if(xhr.readyState == 4 && xhr.status === 200) {
+					this.records = parseArray(xhr.responseText); // Here we call function with parameter "lines*"                   
+					document.getElementById("animeList").innerHTML = generateTable(this.records);
+				}
+			};
+			xhr.open("GET", "assets/anime.csv", true);
+			xhr.send();
+			return;
+		}
+
+		/*// Reads records from anime.csv file and store each record as an instance of the anime class
 		// Each instance will be stored in the records attribute of the animeManager object
 		readFile() {
 			let raw_data = fs.readFileSync("assets/anime.csv") + '';
@@ -61,28 +74,45 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 			} // end for
 		} // end readFile
 
-		// used the toHTMLRow method of each instance to create the table HTML string
-		generateTable() {
-			let htmlStr = "<table>";
-			htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
-			htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
-			htmlStr += "<th>Rating</th><th>Members</th>";
-			htmlStr += "</tr></thead></tbody>";
-
-			this.records.forEach(rec => {
-				htmlStr += rec.toHTMLRow();
-			});
-			htmlStr += "</tbody></table>";
-			return htmlStr;
-		} // end generateTable
-
 		// Uses the generateTable method and save the code generated to the file "table.html"
 		writeHTML() {
 			let htmlStr = this.generateTable();
 			console.log(htmlStr);
 			fs.writeFileSync("table.html", htmlStr);
-		}
+		}*/
 	}
+
+	function parseArray(lines) {
+		var raw_records_row = lines.split('\n');
+		var records = []; 
+
+		for(let i = 1; i < raw_records_row.length; i++) {
+			let rec = raw_records_row[i];
+			let comp = rec.split(",");
+
+			if(comp.length > 5) {
+				let p = new Anime(comp[0], comp[1], comp[2], comp[3], comp[4], comp[5], comp[6]);
+				records.push(p);
+			}
+		}
+		return records;
+	}
+
+	// used the toHTMLRow method of each instance to create the table HTML string
+	function generateTable(records) {
+		let htmlStr = "<table>";
+		htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
+		htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
+		htmlStr += "<th>Rating</th><th>Members</th>";
+		htmlStr += "</tr></thead></tbody>";
+
+		records.forEach(rec => {
+			htmlStr += rec.toHTMLRow();
+		});
+		htmlStr += "</tbody></table>";
+		return htmlStr;
+	} // end generateTable
+
 	module.exports = {
 		AnimeManager: AnimeManager
 	};
@@ -103,7 +133,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 	console.log("AnimeManager is " + typeof testManager + "   testManager is " + testManager);
 
 	testManager.readFile();
-	testManager.writeHTML();
+	//testManager.writeHTML();
 	console.log("written to html");
 }
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
