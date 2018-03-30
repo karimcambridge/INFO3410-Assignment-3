@@ -19,7 +19,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
                 let rec = raw_records_row[i] + '';
                 let comp = rec.split(",");
 
-                if(comp.length > 5){
+                if(comp.length > 5) {
                     let p = new Anime(comp[0], comp[1], comp[2], comp[3], comp[4], comp[5], comp[6]);
                     this.records.push(p);
                 } //end if
@@ -28,9 +28,6 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 
         //used the toHTMLRow method of each instance to create the table HTML string
         generateTable() {
-            if(this.records.length < 1)
-                fs.readFile();
-            
             let htmlStr = "<table>";
             htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
             htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
@@ -47,6 +44,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
         //Uses the generateTable method and save the code generated to the file "table.html"
         writeHTML() {
             let htmlStr = this.generateTable();
+            console.log(htmlStr);
             fs.writeFileSync("table.html", htmlStr);
         }
     }
