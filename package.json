@@ -6,7 +6,9 @@
   "scripts": {
     "build": "npm run clean",
     "watch": "npm run clean",
-    "start": "node server"
+    "start": "node server",
+    "build-js": "browserify js/main.js > js/findem.js",
+    "watch-js": "watchify js/main.js -o js/findem.js -v"
   },
   "repository": {
     "type": "git",
@@ -19,6 +21,7 @@
   },
   "homepage": "https://github.com/karimcambridge/Assignment-3#readme",
   "dependencies": {
-    "browserify": "^16.1.1"
+    "browserify": "^16.1.1",
+    "watchify": "^3.11.0"
   }
 }
