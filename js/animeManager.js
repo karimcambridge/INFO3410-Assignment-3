@@ -83,21 +83,23 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 	}
 
 	// used the toHTMLRow method of each instance to create the table HTML string
-	function generateTable(records) {
-		let htmlStr = "<table>";
-		htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
-		htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
-		htmlStr += "<th>Rating</th><th>Members</th>";
-		htmlStr += "</tr></thead></tbody>";
+    function generateTable(records) {
+        let htmlStr = "<table id='ourTable'>";
+        htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
+        htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
+        htmlStr += "<th>Rating</th><th>Members</th><th>Icon</th>";
+        htmlStr += "</tr></thead></tbody>";
 
-		records.forEach(rec => {
-			htmlStr += rec.toHTMLRow();
-		});
-		htmlStr += "</tbody></table>";
-		return htmlStr;
-	} // end generateTable
+        records.forEach(rec => {
+            htmlStr += rec.toHTMLRow();
+    });
+        htmlStr += "</tbody></table>";
+        htmlStr += "<input type='button' name='OK' class='ok' value='OK'/>";
+        return htmlStr;
+    } // end generateTable
 
-	module.exports = {
+
+    module.exports = {
 		AnimeManager: AnimeManager
 	};
 }

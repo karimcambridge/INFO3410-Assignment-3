@@ -13,8 +13,8 @@ class Anime {
 		this.members = members;
 	}
 
-	toHTMLRow() {
-	    let currentRating = 0;
+    toHTMLRow() {
+        let currentRating = 0;
         let str = "<tr>";
 
         //iterating the keys of an object
@@ -73,8 +73,6 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 			return;
 		}
 
-
-
 		/*// Reads records from anime.csv file and store each record as an instance of the anime class
 		// Each instance will be stored in the records attribute of the animeManager object
 		readFile() {
@@ -100,19 +98,6 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 		}*/
 	}
 
-	/*
-    //Modal Section
-    $('ourTable').click(function(){
-        $(this).addClass('selected').siblings().removeClass('selected');
-        var value=$(this).find('td:first').html();
-        console.log("in Jquery!!!")
-        alert(value);
-    });
-
-    $('.ok').on('click', function(e){
-        alert($("#table tr.selected td:first").html());
-    });
-*/
 	function parseArray(lines) {
 		var raw_records_row = lines.split('\n');
 		var records = []; 
@@ -149,22 +134,23 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 	}
 
 	// used the toHTMLRow method of each instance to create the table HTML string
-	function generateTable(records) {
-		let htmlStr = "<table id='ourTable'>";
-		htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
-		htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
-		htmlStr += "<th>Rating</th><th>Members</th><th>Icon</th>";
-		htmlStr += "</tr></thead></tbody>";
+    function generateTable(records) {
+        let htmlStr = "<table id='ourTable'>";
+        htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
+        htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
+        htmlStr += "<th>Rating</th><th>Members</th><th>Icon</th>";
+        htmlStr += "</tr></thead></tbody>";
 
-		records.forEach(rec => {
-			htmlStr += rec.toHTMLRow();
-		});
-		htmlStr += "</tbody></table>";
-		htmlStr += "<input type='button' name='OK' class='ok' value='OK'/>";
-		return htmlStr;
-	} // end generateTable
+        records.forEach(rec => {
+            htmlStr += rec.toHTMLRow();
+    });
+        htmlStr += "</tbody></table>";
+        htmlStr += "<input type='button' name='OK' class='ok' value='OK'/>";
+        return htmlStr;
+    } // end generateTable
 
-	module.exports = {
+
+    module.exports = {
 		AnimeManager: AnimeManager
 	};
 }
@@ -191,6 +177,3 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 },{"../js/animeManager.js":2}],"browserify-fs":[function(require,module,exports){
 
 },{}]},{},[3]);
-
-
-
