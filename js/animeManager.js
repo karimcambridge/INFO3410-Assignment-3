@@ -17,10 +17,12 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 					document.getElementById("animeList").innerHTML = generateTable(this.records);
 				}
 			};
-			xhr.open("GET", "assets/anime.csv", true);
+			xhr.open("GET", "assets/anime_ok.csv", true);
 			xhr.send();
 			return;
 		}
+
+
 
 		/*// Reads records from anime.csv file and store each record as an instance of the anime class
 		// Each instance will be stored in the records attribute of the animeManager object
@@ -47,6 +49,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 		}*/
 	}
 
+
 	function parseArray(lines) {
 		var raw_records_row = lines.split('\n');
 		var records = []; 
@@ -59,6 +62,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 			records.push(p);
 		}
 		return records;
+
 	}
 
 	// Return array of string values, or NULL if CSV string not well formed.
@@ -84,7 +88,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 
 	// used the toHTMLRow method of each instance to create the table HTML string
     function generateTable(records) {
-        let htmlStr = "<table id='ourTable'>";
+        let htmlStr = "<table id='tableID'>";
         htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
         htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
         htmlStr += "<th>Rating</th><th>Members</th><th>Icon</th>";
@@ -98,8 +102,15 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
         return htmlStr;
     } // end generateTable
 
-
+	/*
+    $(document).ready(function(){
+    	function myFunction(x) {
+            alert("Row index is: ");
+        }
+    })
+	*/
     module.exports = {
 		AnimeManager: AnimeManager
 	};
+
 }

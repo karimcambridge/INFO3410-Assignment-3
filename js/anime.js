@@ -1,5 +1,9 @@
 /* jshint esversion: 6 */
 
+function myFunction(x) {
+    alert("Row index is: " + x.rowIndex);
+}
+
 class Anime {
 	constructor(anime_id, name, genre, type, episodes, rating, members){
 		this.anime_id = anime_id;
@@ -13,7 +17,11 @@ class Anime {
 
     toHTMLRow() {
         let currentRating = 0;
-        let str = "<tr>";
+        //Modal Testing. Can customize function
+        let str = "<tr onclick='function hi(x){alert(x.cells[2].innerHTML)}; hi(this)'>";
+        //let str = "<tr onclick=alert(this.innerText)>";
+        //let str = "<tr onclick='myFunction(this)'>";
+        console.log("onclick test " + str);
 
         //iterating the keys of an object
 

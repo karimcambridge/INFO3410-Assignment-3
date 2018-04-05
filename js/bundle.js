@@ -2,6 +2,10 @@ require=(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=
 (function (global){
 /* jshint esversion: 6 */
 
+function myFunction(x) {
+    alert("Row index is: " + x.rowIndex);
+}
+
 class Anime {
 	constructor(anime_id, name, genre, type, episodes, rating, members){
 		this.anime_id = anime_id;
@@ -15,7 +19,11 @@ class Anime {
 
     toHTMLRow() {
         let currentRating = 0;
-        let str = "<tr>";
+        //Modal Testing. Can customize function
+        let str = "<tr onclick='function hi(x){dialogue(x.cells[2].innerHTML)}; hi(this)'>";
+        //let str = "<tr onclick=alert(this.innerText)>";
+        //let str = "<tr onclick='myFunction(this)'>";
+        console.log("onclick test " + str);
 
         //iterating the keys of an object
 
@@ -68,10 +76,12 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 					document.getElementById("animeList").innerHTML = generateTable(this.records);
 				}
 			};
-			xhr.open("GET", "assets/anime.csv", true);
+			xhr.open("GET", "assets/anime_ok.csv", true);
 			xhr.send();
 			return;
 		}
+
+
 
 		/*// Reads records from anime.csv file and store each record as an instance of the anime class
 		// Each instance will be stored in the records attribute of the animeManager object
@@ -98,6 +108,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 		}*/
 	}
 
+
 	function parseArray(lines) {
 		var raw_records_row = lines.split('\n');
 		var records = []; 
@@ -110,6 +121,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 			records.push(p);
 		}
 		return records;
+
 	}
 
 	// Return array of string values, or NULL if CSV string not well formed.
@@ -135,7 +147,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 
 	// used the toHTMLRow method of each instance to create the table HTML string
     function generateTable(records) {
-        let htmlStr = "<table id='ourTable'>";
+        let htmlStr = "<table id='tableID'>";
         htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
         htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
         htmlStr += "<th>Rating</th><th>Members</th><th>Icon</th>";
@@ -149,23 +161,32 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
         return htmlStr;
     } // end generateTable
 
-
+	/*
+    $(document).ready(function(){
+    	function myFunction(x) {
+            alert("Row index is: ");
+        }
+    })
+	*/
     module.exports = {
 		AnimeManager: AnimeManager
 	};
+
 }
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../js/anime":1,"fs":"browserify-fs"}],3:[function(require,module,exports){
 (function (global){
 
 /* jshint esversion: 6 */
+//----------------------------------
 
 console.log("require is " + typeof require + "   global is " + typeof global);
 
 if(typeof global !== "undefined" && typeof require !== "undefined") { // to accomodate difference between node and the browser
 	const AnimeManager = require('../js/animeManager.js').AnimeManager;
 
-	let testManager = new AnimeManager();
+
+	testManager = new AnimeManager();
 
 	console.log("AnimeManager is " + typeof testManager + "   testManager is " + testManager);
 
