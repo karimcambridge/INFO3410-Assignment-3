@@ -2,10 +2,6 @@ require=(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=
 (function (global){
 /* jshint esversion: 6 */
 
-function myFunction(x) {
-	alert("Row index is: " + x.rowIndex);
-}
-
 class Anime {
 	constructor(anime_id, name, genre, type, episodes, rating, members){
 		this.anime_id = anime_id;
@@ -19,11 +15,15 @@ class Anime {
 
 	toHTMLRow() {
 		let currentRating = 0;
-		//Modal Testing. Can customize function
-		let str = "<tr onclick='function hi(x){alert(x.cells[2].innerHTML)}; hi(this)'>";
-		//let str = "<tr onclick=alert(this.innerText)>";
-		//let str = "<tr onclick='myFunction(this)'>";
-		//console.log("onclick test " + str);
+		let str = "<tr data-toggle=\"modal\" data-target=\"#modalAnime\" data-id=\"" + this.anime_id + "\" ";
+		str += "data-name=\"" + this.name + "\" ";
+		str += "data-genre=\"" + this.genre + "\" ";
+		str += "data-type=\"" + this.type + "\" ";
+		str += "data-episodes=\"" + this.episodes + "\" ";
+		str += "data-rating=\"" + this.rating + "\" ";
+		str += "data-members=\"" + this.members + "\"";
+		str += ">";
+		console.log(str);
 
 		//iterating the keys of an object
 
@@ -52,6 +52,33 @@ class Anime {
 	}
 }
 
+$(document).ready(function() {
+	$('#modalAnime').on('show.bs.modal', function(event){
+		console.log("show");
+
+		let animeId = $(event.relatedTarget).data("id");
+		let name = $(event.relatedTarget).data("name");
+		let genre = $(event.relatedTarget).data("genre");
+		let type = $(event.relatedTarget).data("type");
+		let episodes = $(event.relatedTarget).data("episodes");
+		let rating = $(event.relatedTarget).data("rating");
+		let members = $(event.relatedTarget).data("members");
+
+		$("#animeId").html('Anime ID: ' + animeId);
+		$("#animeName").html('Name: ' + name);
+		$("#animeGenre").html('Genre: ' + genre);
+		$("#animeType").html('Type: ' + type);
+		$("#animeEpisodes").html('Episodes: ' + episodes);
+		$("#animeRating").html('Rating: ' + rating);
+		$("#animeMembers").html('Members: ' + members);
+	});
+
+	$('#modalAnime').on('shown.bs.modal', function () {
+	  $('#modalAnime').focus();
+		console.log("shown");
+	});
+});
+
 if(global && module && module.exports) {
 	module.exports = {
 		'Anime': Anime
@@ -79,12 +106,10 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 					document.getElementById("divTableAnime").innerHTML = generateTable(this.records);
 				}
 			};
-			xhr.open("GET", "assets/anime_ok.csv", true);
+			xhr.open("GET", "assets/anime.csv", true);
 			xhr.send();
 			return;
 		}
-
-
 
 		/*// Reads records from anime.csv file and store each record as an instance of the anime class
 		// Each instance will be stored in the records attribute of the animeManager object
@@ -110,7 +135,6 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 			fs.writeFileSync("table.html", htmlStr);
 		}*/
 	}
-
 
 	function parseArray(lines) {
 		let raw_records_row = lines.split('\n');

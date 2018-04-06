@@ -17,12 +17,10 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 					document.getElementById("divTableAnime").innerHTML = generateTable(this.records);
 				}
 			};
-			xhr.open("GET", "assets/anime_ok.csv", true);
+			xhr.open("GET", "assets/anime.csv", true);
 			xhr.send();
 			return;
 		}
-
-
 
 		/*// Reads records from anime.csv file and store each record as an instance of the anime class
 		// Each instance will be stored in the records attribute of the animeManager object
@@ -48,7 +46,6 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 			fs.writeFileSync("table.html", htmlStr);
 		}*/
 	}
-
 
 	function parseArray(lines) {
 		let raw_records_row = lines.split('\n');
