@@ -13,7 +13,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 			var xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function () {
 				if(xhr.readyState == 4 && xhr.status === 200) {
-					this.records = parseArray(xhr.responseText); // Here we call function with parameter "lines*"                   
+					this.records = parseArray(xhr.responseText); // Here we call function with parameter "lines*"
 					document.getElementById("animeList").innerHTML = generateTable(this.records);
 				}
 			};
@@ -88,6 +88,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 
 	// used the toHTMLRow method of each instance to create the table HTML string
     function generateTable(records) {
+    	console.log('# of records loaded: ' + records.length + '.');
         let htmlStr = "<table id='tableID'>";
         htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
         htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
