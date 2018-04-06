@@ -27,23 +27,22 @@ class Anime {
 
 		//iterating the keys of an object
 
-		for(let key in this){
+		for(let key in this) {
 			str += "<td>"+ this[key] +"</td>"; // access the value of that key in the object
-			if(key == "rating"){
+			if(key == "rating") {
 				currentRating = parseInt(this[key]);
 			}
 			//console.log(key);
 		}
-		if(currentRating >= 7 ) {
-			str += "<td><img src='happyface.png' alt='' border=3 height=20 width=20></img> </td>";
-		} else if (currentRating >= 5){
-			str += "<td><img src='neutralface.png' alt='' border=3 height=20 width=20></img> </td>";
-		} else if (currentRating >= 1){
-			str += "<td><img src='frownface.png' alt='' border=3 height=20 width=20></img> </td>";
+		if(currentRating >= 7) {
+			str += "<td><img src='happyface.png' alt='' border=3 height=20 width=20></img></td>";
+		} else if(currentRating >= 5) {
+			str += "<td><img src='neutralface.png' alt='' border=3 height=20 width=20></img></td>";
+		} else if(currentRating >= 1) {
+			str += "<td><img src='frownface.png' alt='' border=3 height=20 width=20></img></td>";
 		} else {
-			str += "<td><img src='thinkingface.png' alt='' border=3 height=20 width=20></img> </td>";
+			str += "<td><img src='thinkingface.png' alt='' border=3 height=20 width=20></img></td>";
 		}
-
 		str += "</tr>";
 		return str;
 	}
@@ -127,50 +126,50 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 
 	// Return array of string values, or NULL if CSV string not well formed.
 	function CSVtoArray(text) {
-	    let re_valid = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/;
-	    let re_value = /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^,'"\s\\]*(?:\s+[^,'"\s\\]+)*))\s*(?:,|$)/g;
-	    // Return NULL if input string is not well formed CSV string.
-	    if (!re_valid.test(text)) return null;
-	    let a = [];                     // Initialize array to receive values.
-	    text.replace(re_value, // "Walk" the string using replace with callback.
-	        function(m0, m1, m2, m3) {
-	            // Remove backslash from \' in single quoted values.
-	            if      (m1 !== undefined) a.push(m1.replace(/\\'/g, "'"));
-	            // Remove backslash from \" in double quoted values.
-	            else if (m2 !== undefined) a.push(m2.replace(/\\"/g, '"'));
-	            else if (m3 !== undefined) a.push(m3);
-	            return ''; // Return empty string.
-	        });
-	    // Handle special case of empty last value.
-	    if (/,\s*$/.test(text)) a.push('');
-	    return a;
+		let re_valid = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/;
+		let re_value = /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^,'"\s\\]*(?:\s+[^,'"\s\\]+)*))\s*(?:,|$)/g;
+		// Return NULL if input string is not well formed CSV string.
+		if(!re_valid.test(text)) return null;
+		let a = [];                     // Initialize array to receive values.
+		text.replace(re_value, // "Walk" the string using replace with callback.
+			function(m0, m1, m2, m3) {
+				// Remove backslash from \' in single quoted values.
+				if      (m1 !== undefined) a.push(m1.replace(/\\'/g, "'"));
+				// Remove backslash from \" in double quoted values.
+				else if (m2 !== undefined) a.push(m2.replace(/\\"/g, '"'));
+				else if (m3 !== undefined) a.push(m3);
+				return ''; // Return empty string.
+			});
+		// Handle special case of empty last value.
+		if(/,\s*$/.test(text)) a.push('');
+		return a;
 	}
 
 	// used the toHTMLRow method of each instance to create the table HTML string
-    function generateTable(records) {
-    	console.log('# of records loaded: ' + records.length + '.');
-        let htmlStr = "<table id='tableID'>";
-        htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
-        htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
-        htmlStr += "<th>Rating</th><th>Members</th><th>Icon</th>";
-        htmlStr += "</tr></thead></tbody>";
+	function generateTable(records) {
+		console.log('# of records loaded: ' + records.length + '.');
 
-        records.forEach(rec => {
-            htmlStr += rec.toHTMLRow();
-    });
-        htmlStr += "</tbody></table>";
-        htmlStr += "<input type='button' name='OK' class='ok' value='OK'/>";
-        return htmlStr;
-    } // end generateTable
+		let htmlStr = "<table id='tableID'>";
+		htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
+		htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
+		htmlStr += "<th>Rating</th><th>Members</th><th>Icon</th>";
+		htmlStr += "</tr></thead></tbody>";
+
+		records.forEach(rec => {
+			htmlStr += rec.toHTMLRow();
+	});
+		htmlStr += "</tbody></table>";
+		return htmlStr;
+	} // end generateTable
 
 	/*
-    $(document).ready(function(){
-    	function myFunction(x) {
-            alert("Row index is: ");
-        }
-    })
+	$(document).ready(function(){
+		function myFunction(x) {
+			alert("Row index is: ");
+		}
+	})
 	*/
-    module.exports = {
+	module.exports = {
 		AnimeManager: AnimeManager
 	};
 
@@ -187,14 +186,11 @@ console.log("require is " + typeof require + "   global is " + typeof global);
 if(typeof global !== "undefined" && typeof require !== "undefined") { // to accomodate difference between node and the browser
 	const AnimeManager = require('../js/animeManager.js').AnimeManager;
 
-
 	testManager = new AnimeManager();
 
 	console.log("AnimeManager is " + typeof testManager + "   testManager is " + testManager);
 
 	testManager.readFile();
-	//testManager.writeHTML();
-	console.log("written to html");
 }
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../js/animeManager.js":2}],"browserify-fs":[function(require,module,exports){
