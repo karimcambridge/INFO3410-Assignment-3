@@ -20,7 +20,7 @@ class Anime {
     toHTMLRow() {
         let currentRating = 0;
         //Modal Testing. Can customize function
-        let str = "<tr onclick='function hi(x){dialogue(x.cells[2].innerHTML)}; hi(this)'>";
+        let str = "<tr onclick='function hi(x){alert(x.cells[2].innerHTML)}; hi(this)'>";
         //let str = "<tr onclick=alert(this.innerText)>";
         //let str = "<tr onclick='myFunction(this)'>";
         console.log("onclick test " + str);
