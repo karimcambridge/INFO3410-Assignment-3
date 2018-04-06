@@ -19,6 +19,7 @@ class Anime {
 		str += "data-type=\"" + this.type + "\" ";
 		str += "data-episodes=\"" + this.episodes + "\" ";
 		str += "data-rating=\"" + this.rating + "\" ";
+		str += "data-members=\"" + this.members + "\"";
 		str += ">";
 		console.log(str);
 
