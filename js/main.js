@@ -9,7 +9,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 
 	testManager = new AnimeManager();
 
-	console.log("AnimeManager is " + typeof testManager + "   testManager is " + testManager);
+	console.log("AnimeManager is " + typeof testManager + " |  testManager is " + testManager);
 
 	testManager.readFile();
 }

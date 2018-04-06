@@ -26,7 +26,11 @@ class Anime {
 		//iterating the keys of an object
 
 		for(let key in this) {
-			str += "<td>"+ this[key] +"</td>"; // access the value of that key in the object
+			if(key === "anime_id") {
+				str += "<th scope='row'>" + this[key] + "</th>"; // access the value of that key in the object
+			} else {
+				str += "<td>" + this[key] + "</td>"; // access the value of that key in the object
+			}
 			if(key == "rating") {
 				currentRating = parseInt(this[key]);
 			}

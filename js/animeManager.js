@@ -91,15 +91,21 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 	function generateTable(records) {
 		console.log('# of records loaded: ' + records.length + '.');
 
-		let htmlStr = "<table id='tableID'>";
-		htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
-		htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
-		htmlStr += "<th>Rating</th><th>Members</th><th>Icon</th>";
-		htmlStr += "</tr></thead></tbody>";
-
+		let htmlStr = "<table id='tableID' class='table table-striped table-bordered table-hover'>";
+		htmlStr += "<caption>List of anime programmes</caption>";
+		htmlStr += "<thead class='thead-dark'><tr>";
+		htmlStr += "<th scope='col'>ID</th>";
+		htmlStr += "<th scope='col'>Name</th>";
+		htmlStr += "<th scope='col'>Genre</th>";
+		htmlStr += "<th scope='col'>Type</th>";
+		htmlStr += "<th scope='col'>Episodes</th>";
+		htmlStr += "<th scope='col'>Rating</th>";
+		htmlStr += "<th scope='col'>Members</th>";
+		htmlStr += "<th scope='col'>Icon</th>";
+		htmlStr += "</tr></thead><tbody>";
 		records.forEach(rec => {
 			htmlStr += rec.toHTMLRow();
-	});
+		});
 		htmlStr += "</tbody></table>";
 		return htmlStr;
 	} // end generateTable
