@@ -28,7 +28,7 @@ class Anime {
 		//iterating the keys of an object
 
 		for(let key in this){
-			str += "<td>"+ this[key] +"</td>"; //access the value of that key in the object
+			str += "<td>"+ this[key] +"</td>"; // access the value of that key in the object
 			if(key == "rating"){
 				currentRating = parseInt(this[key]);
 			}
@@ -69,10 +69,10 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 		}
 		
 		readFile() {
-			var xhr = new XMLHttpRequest();
+			let xhr = new XMLHttpRequest();
 			xhr.onreadystatechange = function () {
 				if(xhr.readyState == 4 && xhr.status === 200) {
-					this.records = parseArray(xhr.responseText); // Here we call function with parameter "lines*"                 
+					this.records = parseArray(xhr.responseText); // Here we call function with parameter "lines*"
 					document.getElementById("animeList").innerHTML = generateTable(this.records);
 				}
 			};
@@ -110,11 +110,12 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 
 
 	function parseArray(lines) {
-		var raw_records_row = lines.split('\n');
-		var records = []; 
+		let raw_records_row = lines.split('\n');
+		let records = []; 
 
 		for(let i = 1; i < raw_records_row.length; i++) {
 			let rec = raw_records_row[i];
+			if(!rec) continue;
 			let comp = CSVtoArray(rec);
 
 			let p = new Anime(comp[0], comp[1], comp[2], comp[3], comp[4], comp[5], comp[6]);
@@ -126,11 +127,11 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 
 	// Return array of string values, or NULL if CSV string not well formed.
 	function CSVtoArray(text) {
-	    var re_valid = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/;
-	    var re_value = /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^,'"\s\\]*(?:\s+[^,'"\s\\]+)*))\s*(?:,|$)/g;
+	    let re_valid = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/;
+	    let re_value = /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^,'"\s\\]*(?:\s+[^,'"\s\\]+)*))\s*(?:,|$)/g;
 	    // Return NULL if input string is not well formed CSV string.
 	    if (!re_valid.test(text)) return null;
-	    var a = [];                     // Initialize array to receive values.
+	    let a = [];                     // Initialize array to receive values.
 	    text.replace(re_value, // "Walk" the string using replace with callback.
 	        function(m0, m1, m2, m3) {
 	            // Remove backslash from \' in single quoted values.
