@@ -14,7 +14,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 			xhr.onreadystatechange = function () {
 				if(xhr.readyState == 4 && xhr.status === 200) {
 					this.records = parseArray(xhr.responseText); // Here we call function with parameter "lines*"
-					document.getElementById("animeList").innerHTML = generateTable(this.records);
+					document.getElementById("divTableAnime").innerHTML = generateTable(this.records);
 				}
 			};
 			xhr.open("GET", "assets/anime_ok.csv", true);
@@ -91,7 +91,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 	function generateTable(records) {
 		console.log('# of records loaded: ' + records.length + '.');
 
-		let htmlStr = "<table id='tableID' class='table table-striped table-bordered table-hover'>";
+		let htmlStr = "<table id='tableAnime' class='table table-striped table-bordered table-hover'>";
 		htmlStr += "<caption>List of anime programmes</caption>";
 		htmlStr += "<thead class='thead-dark'><tr>";
 		htmlStr += "<th scope='col'>ID</th>";
