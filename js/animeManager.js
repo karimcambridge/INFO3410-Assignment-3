@@ -71,7 +71,7 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 		let re_valid = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/;
 		let re_value = /(?!\s*$)\s*(?:'([^'\\]*(?:\\[\S\s][^'\\]*)*)'|"([^"\\]*(?:\\[\S\s][^"\\]*)*)"|([^,'"\s\\]*(?:\s+[^,'"\s\\]+)*))\s*(?:,|$)/g;
 		// Return NULL if input string is not well formed CSV string.
-		if (!re_valid.test(text)) return null;
+		if(!re_valid.test(text)) return null;
 		let a = [];                     // Initialize array to receive values.
 		text.replace(re_value, // "Walk" the string using replace with callback.
 			function(m0, m1, m2, m3) {
@@ -83,13 +83,14 @@ if(typeof global !== "undefined" && typeof require !== "undefined") { // to acco
 				return ''; // Return empty string.
 			});
 		// Handle special case of empty last value.
-		if (/,\s*$/.test(text)) a.push('');
+		if(/,\s*$/.test(text)) a.push('');
 		return a;
 	}
 
 	// used the toHTMLRow method of each instance to create the table HTML string
 	function generateTable(records) {
 		console.log('# of records loaded: ' + records.length + '.');
+
 		let htmlStr = "<table id='tableID'>";
 		htmlStr += "<thead><tr><th>ID</th><th>Name</th>";
 		htmlStr += "<th>Genre</th><th>Type</th><th>Episodes</th>";
