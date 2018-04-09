@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Anime Listing</title>
+</head>
+<body>
+    <h2>Anime Programme List</h2>
+    <ul>
+        {% for rec in animes %}
+            <li>{{ rec.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
