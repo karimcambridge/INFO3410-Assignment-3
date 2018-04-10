@@ -21,11 +21,22 @@
     <br/>
 
     {% if animes %}
-        <ul>
-            {% for rec in animes %}
-                <li>{{ rec.name }}</li>
-            {% endfor %}
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Anime ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for rec in animes %}
+                        <td>{{ rec }}</td>
+                        <td>{{ rec.name }}</td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
     {% endif %}
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
