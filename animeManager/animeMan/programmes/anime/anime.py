@@ -25,7 +25,7 @@ class Anime(models.Model):
     episodes = IntegerField()
     rating = IntegerField()
     members = IntegerField()
-    #icon = ImageField(null=True, upload_to='img/profiles', verbose_name="Anime Photo")
+    icon = ImageField(null=True, upload_to='img/profiles', verbose_name="Anime Photo")
 
     def __str__(self):
         return self.name
