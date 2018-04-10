@@ -2,7 +2,7 @@ from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect 
 from django.contrib.auth.models import User
 from rest_framework import viewsets
-from .serializers import UserSerializer
+from .serializers import UserSerializer, SignUpSerializer
 from django.views import View
 from .anime import Anime
 from .forms import AnimeForm, CSVFileUploadForm
@@ -88,3 +88,7 @@ class RecordView(View):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class SignUpViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = SignUpSerializer
