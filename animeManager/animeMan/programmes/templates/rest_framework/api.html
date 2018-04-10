@@ -7,6 +7,11 @@
     <title>Sign Up</title>
 </head>
 <body>
-    
+    <h2>Sign Up</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {% render_form serializer %}
+        <input type="submit" value="Save">
+    </form>
 </body>
 </html>

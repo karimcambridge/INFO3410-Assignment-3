@@ -45,7 +45,7 @@
     <form method="post">
         <div class="row">
         {% csrf_token %}
-        {% for field in ProgrammeForm %}
+        {% for field in AnimeForm %}
             <div class="form-group col">
                 {{ field.errors }}
                 {{ field.label_tag }} {{ field }}
