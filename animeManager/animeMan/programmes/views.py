@@ -1,8 +1,11 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views import View
-from .models import Programme
-from .forms import ProgrammeForm, CSVFileUploadForm
+from django.views import View 
+from django.contrib.auth.models import User
+from rest_framework import viewsets
+from .serializers import UserSerializer
+from .anime import Anime 
+from .forms import AnimeForm, CSVFileUploadForm
 from django.contrib import messages
 import csv
 from io import StringIO
@@ -19,11 +22,11 @@ from io import StringIO
 
 def list_programmes(request):
     """ Lists all programmes on the main page """
-    programmes_dict = Programme.objects.all()
+    animes_dict = Anime.objects.all()
     return render(request, 'animes/list.html', {
-            'animes': programmes_dict,
+            'animes': animes_dict,
             'CSVFileUploadForm': CSVFileUploadForm,
-            'ProgrammeForm': ProgrammeForm
+            'AnimeForm': AnimeForm
         })
 
 def add_programmes(request):
@@ -32,7 +35,7 @@ def add_programmes(request):
     if request.method == "GET":
         return render(request, 'animes/add.html', {
             'CSVFileUploadForm': CSVFileUploadForm,
-            'ProgrammeForm': ProgrammeForm
+            'AnimeForm': AnimeForm
         })
     else:
         file = request.FILES["file"]
@@ -57,6 +60,7 @@ def add_programmes(request):
 
             if len(line) > 0:
 
+<<<<<<< HEAD
                 print("line is ", line)
 #
                 form = ProgrammeForm(line) # CSVFileUploadForm(request.POST, request.FILES)
@@ -64,23 +68,37 @@ def add_programmes(request):
                     form.save()
 
         return render(request, 'animes/list.html')
+=======
+                form = AnimeForm(data_dict) # CSVFileUploadForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
+
+        return render(request, 'animes/add.html', {
+                'CSVFileUploadForm': CSVFileUploadForm,
+                'ProgrammeForm': AnimeForm
+            })
+>>>>>>> 42fde68dd80ede1e23551ab9f4dbffb5d0085d38
 
 class RecordView(View):
     """ Record view class """
     def get(self, request):
         """ Record view get Mutator """
-        programme_form = ProgrammeForm()
+        anime_form = AnimeForm()
         return render(request, 'animes/add.html', {
-            'form': programme_form
+            'form': anime_form
         })
 
     def post(self, request):
         """ Record view post """
-        programme_form = ProgrammeForm(request.POST, request.FILES)
-        if programme_form.is_valid():
-            programme_form.save()
+        anime_form = AnimeForm(request.POST, request.FILES)
+        if anime_form.is_valid():
+            anime_form.save()
             return HttpResponseRedirect("/")
 
         return render(request, 'animes/add.html', {
-            'form': programme_form
+            'form': anime_form
         })
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

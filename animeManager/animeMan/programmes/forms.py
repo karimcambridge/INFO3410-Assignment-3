@@ -1,11 +1,11 @@
 from django import forms
 from django.db import models
 from django.forms import ModelForm
-from .models import Programme
+from .anime import Anime
 
-class ProgrammeForm(ModelForm):
+class AnimeForm(ModelForm):
     class Meta:
-        model = Programme
+        model = Anime 
         exclude = ()
 
 class CSVFileUploadForm(forms.Form):
