@@ -23,15 +23,11 @@ from io import StringIO
 def list_programmes(request):
     """ Lists all programmes on the main page """
     animes_dict = Anime.objects.all()
-    return render(request, 'animes/list.html', {
-            'animes': animes_dict,
-            'CSVFileUploadForm': CSVFileUploadForm,
-            'AnimeForm': AnimeForm
-        })
+    return render(request, 'animes/list.html', { 'animes': animes_dict })
 
 def add_programmes(request):
     """ Lists all programmes on the main page """
-    print(request.method)  
+
     if request.method == "GET":
         return render(request, 'animes/add.html', {
             'CSVFileUploadForm': CSVFileUploadForm,
@@ -62,11 +58,15 @@ def add_programmes(request):
 
                 print("line is ", line)
 
+                anime = Anime()
+                anime.save()
+
                 form = AnimeForm(line) # CSVFileUploadForm(request.POST, request.FILES)
                 if form.is_valid():
                     form.save()
 
-        return render(request, 'animes/list.html')
+        animes_dict = Anime.objects.all()
+        return render(request, 'animes/list.html', { 'animes': animes_dict })
 
 
 class RecordView(View):
@@ -75,7 +75,8 @@ class RecordView(View):
         """ Record view get Mutator """
         anime_form = AnimeForm()
         return render(request, 'animes/add.html', {
-            'form': anime_form
+            'CSVFileUploadForm': CSVFileUploadForm,
+            'AnimeForm': AnimeForm
         })
 
     def post(self, request):
@@ -86,7 +87,8 @@ class RecordView(View):
             return HttpResponseRedirect("/")
 
         return render(request, 'animes/add.html', {
-            'form': anime_form
+            'CSVFileUploadForm': CSVFileUploadForm,
+            'AnimeForm': AnimeForm
         })
 
 class UserViewSet(viewsets.ModelViewSet):
