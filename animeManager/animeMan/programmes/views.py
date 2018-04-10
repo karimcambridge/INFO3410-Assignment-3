@@ -4,12 +4,14 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets
 from .serializers import UserSerializer, SignUpSerializer
 from django.views import View
-from .anime import Anime 
+from .anime import Anime
 from .forms import AnimeForm, CSVFileUploadForm
 import csv
 from io import StringIO
 
 # Create your views here.
+
+IMG_UPLOAD_PATH = 'img/profiles/'
 
 def list_programmes(request):
     """ Lists all programmes on the main page """
@@ -29,7 +31,7 @@ def add_programmes(request):
             data = request.POST
             print(data)
 
-            anime = Anime(data['anime_id'], data['name'], data['genre'], data['types'], data['episodes'], data['rating'], data['members'], data['icon'])
+            anime = Anime(data['anime_id'], data['name'], data['genre'], data['types'], data['episodes'], data['rating'], data['members'], IMG_UPLOAD_PATH + data['icon'])
             anime.save()
 
             animes_dict = Anime.objects.all()
