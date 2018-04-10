@@ -61,6 +61,8 @@ def add_programmes(request):
                 anime = Anime()
                 anime.save()
 
+                print("anime is ", anime)
+
                 form = AnimeForm(line) # CSVFileUploadForm(request.POST, request.FILES)
                 if form.is_valid():
                     form.save()
