@@ -1,9 +1,9 @@
 from django.shortcuts import render, reverse
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views import View 
+from django.http import HttpResponse, HttpResponseRedirect 
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 from .serializers import UserSerializer
+from django.views import View
 from .anime import Anime 
 from .forms import AnimeForm, CSVFileUploadForm
 from django.contrib import messages
