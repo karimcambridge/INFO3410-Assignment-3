@@ -22,8 +22,8 @@ class Anime(models.Model):
         (TELEVISION, "TV")
     )
     types = CharField(max_length=5, choices=TYPE_CHOICE, default="Movie")
-    episodes = IntegerField(null=True, blank=True)
-    rating = DecimalField(max_digits=12, decimal_places=3, null=True, blank=True)
+    episodes = CharField(max_length=12, null=True, blank=True)
+    rating = DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     members = IntegerField(null=True, blank=True)
     icon = ImageField(null=True, blank=True, upload_to='img/profiles', verbose_name="Anime Photo")
 
