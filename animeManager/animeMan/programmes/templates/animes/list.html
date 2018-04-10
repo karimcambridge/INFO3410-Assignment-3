@@ -6,24 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Anime Listing</title>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Anime List</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Anime List</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="add.html">Upload / Add Records</a></li>
+            </ul>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href="details.html">Anime Details</a></li>
-            <li><a href="add.html">Upload</a></li>
-        </ul>
-    </div>
-</nav>
+    </nav>
     <br/>
 
     {% if animes %}
@@ -42,7 +41,7 @@
             </thead>
             <tbody>
                 {% for rec in animes %}
-                    <tr>
+                    <tr data-toggle="modal" data-target="#modalAnime" data-id='{{ rec.anime_id }}' data-name='{{ rec.name }}' data-id='{{ rec.name }}' data-genre='{{ rec.genre }}' data-type='{{ rec.type }}' data-episodes='{{ rec.episodes }}' data-rating='{{ rec.rating }}' data-members='{{ rec.members }}' data-icon='{{ rec.icon }}'>
                         <td scope='row'>{{ rec.anime_id }}</td>
                         <td>{{ rec.name }}</td>
                         <td>{{ rec.genre }}</td>
@@ -57,35 +56,60 @@
         </table>
     {% endif %}
 
-<script>
-    $(document).ready(function() {
-        $('#modalAnime').on('show.bs.modal', function(event){
-            console.log("show");
+    <!-- Modal -->
+    <div class="modal fade" id="modalAnime" tabindex="-1" role="dialog" aria-labelledby="modalAnimeLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAnimeLabel">Anime Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="animeId"></div>
+                    <div id="animeName"></div>
+                    <div id="animeGenre"></div>
+                    <div id="animeType"></div>
+                    <div id="animeEpisodes"></div>
+                    <div id="animeRating"></div>
+                    <div id="animeMembers"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            animeId = $(event.relatedTarget).data("anime_id");
-            name = $(event.relatedTarget).data("name");
-            genre = $(event.relatedTarget).data("genre");
-            type = $(event.relatedTarget).data("type");
-            episodes = $(event.relatedTarget).data("episodes");
-            rating = $(event.relatedTarget).data("rating");
-            members = $(event.relatedTarget).data("members");
+    <script>
+        $(document).ready(function() {
+            $('#modalAnime').on('show.bs.modal', function(event){
+                console.log("show");
 
-            $("#animeId").html('Anime ID: ' + animeId);
-            $("#animeName").html('Name: ' + name);
-            $("#animeGenre").html('Genre: ' + genre);
-            $("#animeType").html('Type: ' + type);
-            $("#animeEpisodes").html('Episodes: ' + episodes);
-            $("#animeRating").html('Rating: ' + rating);
-            $("#animeMembers").html('Members: ' + members);
+                animeId = $(event.relatedTarget).data("id");
+                name = $(event.relatedTarget).data("name");
+                genre = $(event.relatedTarget).data("genre");
+                type = $(event.relatedTarget).data("type");
+                episodes = $(event.relatedTarget).data("episodes");
+                rating = $(event.relatedTarget).data("rating");
+                members = $(event.relatedTarget).data("members");
+
+                $("#animeId").html('Anime ID: ' + animeId);
+                $("#animeName").html('Name: ' + name);
+                $("#animeGenre").html('Genre: ' + genre);
+                $("#animeType").html('Type: ' + type);
+                $("#animeEpisodes").html('Episodes: ' + episodes);
+                $("#animeRating").html('Rating: ' + rating);
+                $("#animeMembers").html('Members: ' + members);
+            });
+
+            $('#modalAnime').on('shown.bs.modal', function () {
+                $('#modalAnime').focus();
+                console.log("shown");
+            });
         });
-
-        $('#modalAnime').on('shown.bs.modal', function () {
-            $('#modalAnime').focus();
-            console.log("shown");
-        });
-    });
-</script>
-
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
