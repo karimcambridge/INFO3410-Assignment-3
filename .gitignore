@@ -1,2 +1,6 @@
 # pyc files
 *.pyc
+
+# Visual Studio Code
+
+.vscode\*
