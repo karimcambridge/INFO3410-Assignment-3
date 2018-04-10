@@ -9,6 +9,8 @@ from django.db.models import (
 )
 # Create your models here.
 
+IMG_UPLOAD_PATH = 'img/profiles/'
+
 class Anime(models.Model):
     anime_id = CharField(max_length=12, primary_key=True, editable=True)
     name = CharField(max_length=100)
@@ -25,7 +27,7 @@ class Anime(models.Model):
     episodes = CharField(max_length=12, null=True, blank=True)
     rating = DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     members = IntegerField(null=True, blank=True)
-    icon = ImageField(null=True, blank=True, upload_to='img/profiles', verbose_name="Anime Photo")
+    icon = ImageField(null=True, blank=True, upload_to=IMG_UPLOAD_PATH, verbose_name="Anime Photo")
 
     def __str__(self):
         return self.name
