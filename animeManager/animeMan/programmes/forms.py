@@ -8,6 +8,5 @@ class ProgrammeForm(ModelForm):
         model = Programme
         exclude = ()
 
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=64)
+class CSVFileUploadForm(forms.Form):
     file = forms.FileField()

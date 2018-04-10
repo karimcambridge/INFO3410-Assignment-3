@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from .models import Programme
-from .forms import ProgrammeForm
+from .forms import ProgrammeForm, CSVFileUploadForm
 
 # Create your views here.
 
@@ -18,7 +18,9 @@ def list_programmes(request):
     """ Lists all programmes on the main page """
     programmes_dict = Programme.objects.all()
     return render(request, 'animes/list.html', {
-        'animes': programmes_dict
+        'animes': programmes_dict,
+        'CSVFileUploadForm': CSVFileUploadForm,
+        'ProgrammeForm': ProgrammeForm
     })
 
 class RecordView(View):
