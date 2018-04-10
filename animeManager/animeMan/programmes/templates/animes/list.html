@@ -62,7 +62,7 @@
         $('#modalAnime').on('show.bs.modal', function(event){
             console.log("show");
 
-            animeId = $(event.relatedTarget).data("id");
+            animeId = $(event.relatedTarget).data("anime_id");
             name = $(event.relatedTarget).data("name");
             genre = $(event.relatedTarget).data("genre");
             type = $(event.relatedTarget).data("type");
