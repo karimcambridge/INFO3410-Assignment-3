@@ -1,10 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
-from .models import Programme
+from .models import Programme, ProgrammesCsvModel
 from .forms import ProgrammeForm
 
 # Create your views here.
+
+#def load_programmes(request):
+#    """ Lists all programmes on the main page """
+#    anime_csv_list = ProgrammesCsvModel.import_data(data = open("my_csv_file_name.csv"))
+#    first_line = anime_csv_list[0]
+#    return render(request, 'animes/list.html', {
+#        'animes': programmes_dict
+#    })
+
 def list_programmes(request):
     """ Lists all programmes on the main page """
     programmes_dict = Programme.objects.all()

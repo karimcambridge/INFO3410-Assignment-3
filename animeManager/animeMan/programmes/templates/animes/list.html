@@ -15,5 +15,12 @@
             {% endfor %}
         </ul>
     {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        <button type="submit">Upload CSV File</button>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Record</button>
+      </form>
 </body>
 </html>

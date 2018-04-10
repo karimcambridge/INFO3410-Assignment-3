@@ -37,10 +37,10 @@ class Meta:
     ordering = ('name',)
 
 
-class ProgrammesModel(CsvDbModel):
+class ProgrammesCsvModel(CsvDbModel):
     """ ProgrammesModel CSV class """
     class Meta:
         """ Meta data class """
         delimiter = ","
         dbModel = Programme
-    
+        has_header = True
