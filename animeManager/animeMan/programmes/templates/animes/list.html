@@ -14,36 +14,6 @@
         <a class="navbar-brand" href="#">Anime</a>
     </nav>
     <br/>
-    <form method="post" enctype="multipart/form-data">
-        <div class="row">
-            {% csrf_token %}
-            <div class="form-group col">
-                <label for="CSVFileUploadForm">Anime File Input: </label>
-                {{ CSVFileUploadForm.file }}
-            </div>
-        </div>
-        {% if animes %}
-            <button type="submit" class="btn btn-secondary">Upload CSV File</button><br/>
-        {% else %}
-            <button type="submit" class="btn btn-primary">Upload CSV File</button><br/>
-        {% endif %}
-    </form>
-    <br/>
-    <form method="post">
-        <div class="row">
-        {% csrf_token %}
-        {% for field in ProgrammeForm %}
-            <div class="form-group col">
-                {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
-                {% if field.help_text %}
-                    <p class="help">{{ field.help_text|safe }}</p>
-                {% endif %}
-            </div>
-        {% endfor %}
-        </div>
-        <button type="submit" class="btn btn-secondary">Add Record</button>
-    </form>
 
     {% if animes %}
         <ul>
