@@ -28,8 +28,8 @@
     </nav>
     <br/>
     <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="row">
-            {% csrf_token %}
             <div class="form-group col">
                 <label for="CSVFileUploadForm">Anime File Input: </label>
                 {{ CSVFileUploadForm.file }}
@@ -43,8 +43,8 @@
     </form>
     <br/>
     <form method="post">
-        <div class="row">
         {% csrf_token %}
+        <div class="row">
         {% for field in AnimeForm %}
             <div class="form-group col">
                 {{ field.errors }}
