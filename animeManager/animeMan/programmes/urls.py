@@ -5,6 +5,7 @@ from .views import list_programmes, add_programmes, RecordView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
 
 urlpatterns = [
     path('', list_programmes),
