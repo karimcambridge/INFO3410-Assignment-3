@@ -38,7 +38,7 @@ def add_programmes(request):
 
         file.open('r')
         csv_file = StringIO(file.read().decode('iso-8859-1'))
-        parsed_data = csv.DictReader(csv_file, delimiter=';', quotechar='\"', escapechar='\\')
+        parsed_data = csv.DictReader(csv_file, delimiter=',', quotechar='"', escapechar='\\')
 
         #if not csv_file.name.endswith('.csv'):
         #    messages.error(request,'File is not CSV type')
@@ -52,20 +52,18 @@ def add_programmes(request):
         print(parsed_data)
         print("moving on")
 
-        for line in parsed_data:
+        for row in map(dict, parsed_data):
+            if len(row) > 0:
 
-            if len(line) > 0:
+                print(row)
+                print(row['anime_id'], row['name'])
 
-                print("line is ", line)
-
-                anime = Anime()
+                anime = Anime(row['anime_id'], row['name'], row['genre'], row['type'], row['episodes'], row['rating'], row['members'])
                 anime.save()
 
-                print("anime is ", anime)
-
-                form = AnimeForm(line) # CSVFileUploadForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
+                #form = AnimeForm(value) # CSVFileUploadForm(request.POST, request.FILES)
+                #if form.is_valid():
+                #    form.save()
 
         animes_dict = Anime.objects.all()
         return render(request, 'animes/list.html', { 'animes': animes_dict })
