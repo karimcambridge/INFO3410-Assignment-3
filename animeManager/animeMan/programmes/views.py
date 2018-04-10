@@ -6,6 +6,9 @@ from .forms import ProgrammeForm, CSVFileUploadForm
 from django.contrib import messages
 import csv
 import codecs
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 
@@ -20,8 +23,18 @@ import codecs
 def list_programmes(request):
     """ Lists all programmes on the main page """
     programmes_dict = Programme.objects.all()
+    return render(request, 'animes/list.html', {
+            'animes': programmes_dict,
+            'CSVFileUploadForm': CSVFileUploadForm,
+            'ProgrammeForm': ProgrammeForm
+        })
+
+def add_programmes(request):
+    """ Lists all programmes on the main page """
+    programmes_dict = Programme.objects.all()
+    logger.info("The value of request.method is %s", request.method)    
     if request.method == "GET":
-        return render(request, 'animes/list.html', {
+        return render(request, 'animes/add.html', {
             'animes': programmes_dict,
             'CSVFileUploadForm': CSVFileUploadForm,
             'ProgrammeForm': ProgrammeForm
@@ -36,23 +49,26 @@ def list_programmes(request):
         messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size / (1000 * 1000),))
         return HttpResponseRedirect(reverse("programmes:list"))
 
-    file_data = csv_file.read().decode("utf-8")        
+    file_data = csv_file.read().decode("utf-8")    
+
+    logger.info("The value of file_data is %s", file_data)    
 
     lines = file_data.split("\n")
     #loop over the lines and save them in db. If error, store as string and then display
     for line in lines:                        
         fields = line.split(",")
-        data_dict = {}
-        data_dict["anime_id"] = fields[0]
-        data_dict["name"] = fields[1]
-        data_dict["genre"] = fields[2]
+        programmes_dict = fields
+        #data_dict = {}
+        #data_dict["anime_id"] = fields[0]
+        #data_dict["name"] = fields[1]
+        #data_dict["genre"] = fields[2]
         #data_dict["notes"] = fields[3]
 
         form = CSVFileUploadForm(fields) # CSVFileUploadForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
 
-    return render(request, 'animes/list.html', {
+    return render(request, 'animes/add.html', {
             'animes': programmes_dict,
             'CSVFileUploadForm': CSVFileUploadForm,
             'ProgrammeForm': ProgrammeForm

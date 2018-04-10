@@ -4,14 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Record</title>
+    <title>Anime Listing</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
 <body>
-    <h1>New Anime Record</h1>
-    <form method="POST" class="post-form">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="savebtn">Save</button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Anime</a>
+    </nav>
+    <br/>
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            {% csrf_token %}
+            <div class="form-group col">
+                <label for="CSVFileUploadForm">Anime File Input: </label>
+                {{ CSVFileUploadForm.file }}
+            </div>
+        </div>
+        {% if animes %}
+            <button type="submit" class="btn btn-secondary">Upload CSV File</button><br/>
+        {% else %}
+            <button type="submit" class="btn btn-primary">Upload CSV File</button><br/>
+        {% endif %}
     </form>
+    <br/>
+    <form method="post">
+        <div class="row">
+        {% csrf_token %}
+        {% for field in ProgrammeForm %}
+            <div class="form-group col">
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+                {% if field.help_text %}
+                    <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-secondary">Add Record</button>
+    </form>
+
+    {% if animes %}
+        <ul>
+            {% for rec in animes %}
+                <li>{{ rec.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 </body>
 </html>
