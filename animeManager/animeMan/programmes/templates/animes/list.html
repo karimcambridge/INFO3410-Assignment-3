@@ -42,7 +42,7 @@
             </thead>
             <tbody>
             {% for rec in animes %}
-                <tr data-toggle="modal" data-target="#modalAnime" data-id='{{ rec.anime_id }}' data-name='{{ rec.name }}' data-id='{{ rec.name }}' data-genre='{{ rec.genre }}' data-type='{{ rec.type }}' data-episodes='{{ rec.episodes }}' data-rating='{{ rec.rating }}' data-members='{{ rec.members }}' data-icon='{{ rec.icon }}'>
+                <tr data-toggle="modal" data-target="#modalAnime" data-id='{{ rec.anime_id }}' data-name='{{ rec.name }}' data-genre='{{ rec.genre }}' data-type='{{ rec.type }}' data-episodes='{{ rec.episodes }}' data-rating='{{ rec.rating }}' data-members='{{ rec.members }}' data-icon='{{ rec.icon }}'>
                     <td scope='row'>{{ rec.anime_id }}</td>
                     <td>{{ rec.name }}</td>
                     <td>{{ rec.genre }}</td>
