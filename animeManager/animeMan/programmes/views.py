@@ -5,7 +5,7 @@ from .models import Programme
 from .forms import ProgrammeForm, CSVFileUploadForm
 from django.contrib import messages
 import csv
-import codecs
+from io import StringIO
 
 # Create your views here.
 
@@ -35,44 +35,35 @@ def add_programmes(request):
             'ProgrammeForm': ProgrammeForm
         })
     else:
-        csv_file = request.FILES["file"]
-        if not csv_file.name.endswith('.csv'):
-            messages.error(request,'File is not CSV type')
-            return HttpResponseRedirect(reverse("programmes:list"))
-        #if file is too large, return
-        if csv_file.multiple_chunks():
-            messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size / (1000 * 1000),))
-            return HttpResponseRedirect(reverse("programmes:list"))
+        file = request.FILES["file"]
 
-        file_data = csv_file.read().decode("utf-8")    
+        file.open('r')
+        csv_file = StringIO(file.read().decode('iso-8859-1'))
+        parsed_data = csv.DictReader(csv_file, delimiter=';', quotechar='\"', escapechar='\\')
 
-        #print("The value of file_data is %s", file_data)    
+        #if not csv_file.name.endswith('.csv'):
+        #    messages.error(request,'File is not CSV type')
+        #    return HttpResponseRedirect(reverse("programmes:list"))
+        ##if file is too large, return
+        #if csv_file.multiple_chunks():
+        #    messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size / (1000 * 1000),))
+        #    return HttpResponseRedirect(reverse("programmes:list"))
 
-        lines = file_data.split("\n")
-        #loop over the lines and save them in db. If error, store as string and then display
-        for line in lines:
+        print("showing data parsed from csv file")
+        print(parsed_data)
+        print("moving on")
+
+        for line in parsed_data:
 
             if len(line) > 0:
 
-                fields = line.split(",")
-                print("The value of fields is ", fields)  
-                data_dict = {}
-                #data_dict["anime_id"] = fields[0]
-                #data_dict["name"] = fields[1]
-                #data_dict["genre"] = fields[2]
-                #data_dict["types"] = fields[3]
-                #data_dict["episodes"] = fields[4]
-                #data_dict["rating"] = fields[5]
-                #data_dict["members"] = fields[6]
-
-                form = ProgrammeForm(data_dict) # CSVFileUploadForm(request.POST, request.FILES)
+                print("line is ", line)
+#
+                form = ProgrammeForm(line) # CSVFileUploadForm(request.POST, request.FILES)
                 if form.is_valid():
                     form.save()
 
-        return render(request, 'animes/add.html', {
-                'CSVFileUploadForm': CSVFileUploadForm,
-                'ProgrammeForm': ProgrammeForm
-            })
+        return render(request, 'animes/list.html')
 
 class RecordView(View):
     """ Record view class """
