@@ -13,7 +13,7 @@ from django.db.models import (
 
 class Programme(models.Model):
     """ Programme class """
-    anime_id = UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    anime_id = UUIDField(primary_key=True, default=uuid.uuid4, editable=True, max_length=128)
     name = CharField(max_length=100)
     genre = CharField(max_length=256)
     MOVIE = "Movie"
