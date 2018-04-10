@@ -35,7 +35,7 @@
                 {{ CSVFileUploadForm.file }}
             </div>
         </div>
-        {% if animes %}
+        {% if anime %}
             <button type="submit" class="btn btn-secondary">Upload CSV File</button><br/>
         {% else %}
             <button type="submit" class="btn btn-primary">Upload CSV File</button><br/>
@@ -45,7 +45,7 @@
     <form method="post">
         <div class="row">
         {% csrf_token %}
-        {% for field in ProgrammeForm %}
+        {% for field in AnimeForm %}
             <div class="form-group col">
                 {{ field.errors }}
                 {{ field.label_tag }} {{ field }}
