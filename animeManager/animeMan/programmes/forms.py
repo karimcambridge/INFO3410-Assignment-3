@@ -10,3 +10,4 @@ class AnimeForm(ModelForm):
 
 class CSVFileUploadForm(forms.Form):
     file = forms.FileField()
+
