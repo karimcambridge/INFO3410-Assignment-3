@@ -31,44 +31,49 @@ def list_programmes(request):
 
 def add_programmes(request):
     """ Lists all programmes on the main page """
-    logger.info("The value of request.method is %s", request.method)    
+    print(request.method)  
     if request.method == "GET":
         return render(request, 'animes/add.html', {
             'CSVFileUploadForm': CSVFileUploadForm,
             'ProgrammeForm': ProgrammeForm
         })
+    else:
+        csv_file = request.FILES["file"]
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request,'File is not CSV type')
+            return HttpResponseRedirect(reverse("programmes:list"))
+        #if file is too large, return
+        if csv_file.multiple_chunks():
+            messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size / (1000 * 1000),))
+            return HttpResponseRedirect(reverse("programmes:list"))
 
-    csv_file = request.FILES["file"]
-    if not csv_file.name.endswith('.csv'):
-        messages.error(request,'File is not CSV type')
-        return HttpResponseRedirect(reverse("programmes:list"))
-    #if file is too large, return
-    if csv_file.multiple_chunks():
-        messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size / (1000 * 1000),))
-        return HttpResponseRedirect(reverse("programmes:list"))
+        file_data = csv_file.read().decode("utf-8")    
 
-    file_data = csv_file.read().decode("utf-8")    
+        #print("The value of file_data is %s", file_data)    
 
-    logger.info("The value of file_data is %s", file_data)    
+        lines = file_data.split("\n")
+        #loop over the lines and save them in db. If error, store as string and then display
+        for line in lines:
 
-    lines = file_data.split("\n")
-    #loop over the lines and save them in db. If error, store as string and then display
-    for line in lines:                        
-        fields = line.split(",")
-        #data_dict = {}
-        #data_dict["anime_id"] = fields[0]
-        #data_dict["name"] = fields[1]
-        #data_dict["genre"] = fields[2]
-        #data_dict["notes"] = fields[3]
+            print("The value of line is ", line)  
+            fields = line.split(",")
+            data_dict = {}
+            #data_dict["anime_id"] = fields[0]
+            #data_dict["name"] = fields[1]
+            #data_dict["genre"] = fields[2]
+            #data_dict["types"] = fields[3]
+            #data_dict["episodes"] = fields[4]
+            #data_dict["rating"] = fields[5]
+            #data_dict["members"] = fields[6]
 
-        form = CSVFileUploadForm(fields) # CSVFileUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
+            form = ProgrammeForm(data_dict) # CSVFileUploadForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
 
-    return render(request, 'animes/add.html', {
-            'CSVFileUploadForm': CSVFileUploadForm,
-            'ProgrammeForm': ProgrammeForm
-        })
+        return render(request, 'animes/add.html', {
+                'CSVFileUploadForm': CSVFileUploadForm,
+                'ProgrammeForm': ProgrammeForm
+            })
 
 class RecordView(View):
     """ Record view class """
