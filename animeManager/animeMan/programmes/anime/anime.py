@@ -5,6 +5,7 @@ from django.db.models import (
     CharField,
     TextField,
     IntegerField,
+    DecimalField,
     ImageField
 )
 # Create your models here.
@@ -22,9 +23,9 @@ class Anime(models.Model):
         (TELEVISION, "TV")
     )
     types = CharField(max_length=5, choices=TYPE_CHOICE, default="Movie")
-    episodes = IntegerField()
-    rating = IntegerField()
-    members = IntegerField()
+    episodes = IntegerField(null=True, blank=True)
+    rating = DecimalField(max_digits=12, decimal_places=3, null=True, blank=True)
+    members = IntegerField(null=True, blank=True)
     icon = ImageField(null=True, upload_to='img/profiles', verbose_name="Anime Photo")
 
     def __str__(self):
