@@ -31,11 +31,9 @@ def list_programmes(request):
 
 def add_programmes(request):
     """ Lists all programmes on the main page """
-    programmes_dict = Programme.objects.all()
     logger.info("The value of request.method is %s", request.method)    
     if request.method == "GET":
         return render(request, 'animes/add.html', {
-            'animes': programmes_dict,
             'CSVFileUploadForm': CSVFileUploadForm,
             'ProgrammeForm': ProgrammeForm
         })
@@ -57,7 +55,6 @@ def add_programmes(request):
     #loop over the lines and save them in db. If error, store as string and then display
     for line in lines:                        
         fields = line.split(",")
-        programmes_dict = fields
         #data_dict = {}
         #data_dict["anime_id"] = fields[0]
         #data_dict["name"] = fields[1]
@@ -69,7 +66,6 @@ def add_programmes(request):
             form.save()
 
     return render(request, 'animes/add.html', {
-            'animes': programmes_dict,
             'CSVFileUploadForm': CSVFileUploadForm,
             'ProgrammeForm': ProgrammeForm
         })
