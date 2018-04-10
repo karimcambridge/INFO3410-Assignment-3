@@ -24,35 +24,41 @@ def add_programmes(request):
             'CSVFileUploadForm': CSVFileUploadForm,
             'AnimeForm': AnimeForm
         })
-    elif len(request.FILES) == 0:
+    elif request.method == "POST":
+        if len(request.FILES) == 0:
+            data = request.POST
+            print(data)
 
-        animes_dict = Anime.objects.all()
-        return render(request, 'animes/list.html', {'animes': animes_dict})
-    else:
-        file = request.FILES["file"]
+            anime = Anime(data['anime_id'], data['name'], data['genre'], data['types'], data['episodes'], data['rating'], data['members'], data['icon'])
+            anime.save()
 
-        file.open('r')
-        csv_file = StringIO(file.read().decode('iso-8859-1'))
-        parsed_data = csv.DictReader(csv_file, delimiter=',', quotechar='"', escapechar='\\')
+            animes_dict = Anime.objects.all()
+            return render(request, 'animes/list.html', {'animes': animes_dict})
+        else:
+            file = request.FILES["file"]
 
-        #if not csv_file.name.endswith('.csv'):
-        #    messages.error(request,'File is not CSV type')
-        #    return HttpResponseRedirect(reverse("programmes:list"))
-        ##if file is too large, return
-        #if csv_file.multiple_chunks():
-        #    messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size / (1000 * 1000),))
-        #    return HttpResponseRedirect(reverse("programmes:list"))
+            file.open('r')
+            csv_file = StringIO(file.read().decode('iso-8859-1'))
+            parsed_data = csv.DictReader(csv_file, delimiter=',', quotechar='"', escapechar='\\')
 
-        print(parsed_data)
+            #if not csv_file.name.endswith('.csv'):
+            #    messages.error(request,'File is not CSV type')
+            #    return HttpResponseRedirect(reverse("programmes:list"))
+            ##if file is too large, return
+            #if csv_file.multiple_chunks():
+            #    messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size / (1000 * 1000),))
+            #    return HttpResponseRedirect(reverse("programmes:list"))
 
-        for row in map(dict, parsed_data):
-            if len(row) > 0:
-                #print(row)
-                anime = Anime(row['anime_id'], row['name'], row['genre'], row['type'], row['episodes'], row['rating'], row['members'])
-                anime.save()
+            print(parsed_data)
 
-        animes_dict = Anime.objects.all()
-        return render(request, 'animes/list.html', {'animes': animes_dict})
+            for row in map(dict, parsed_data):
+                if len(row) > 0:
+                    #print(row)
+                    anime = Anime(row['anime_id'], row['name'], row['genre'], row['type'], row['episodes'], row['rating'], row['members'])
+                    anime.save()
+
+            animes_dict = Anime.objects.all()
+            return render(request, 'animes/list.html', {'animes': animes_dict})
 
 
 class RecordView(View):
