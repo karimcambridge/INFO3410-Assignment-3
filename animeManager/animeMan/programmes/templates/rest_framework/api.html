@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign Up</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
     <h2>Sign Up</h2>
-    <form method="POST">
+    <form action="{% url 'signup' %}" method="POST">
         {% csrf_token %}
-        {% render_form serializer %}
-        <input type="submit" value="Save">
+        {% render_form serializer template_pack='rest_framework/vertical' %}
+        <button type="submit" class="signUp btn">Sign Up</button>
     </form>
 </body>
 </html>
