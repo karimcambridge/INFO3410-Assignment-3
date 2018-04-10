@@ -6,9 +6,6 @@ from .forms import ProgrammeForm, CSVFileUploadForm
 from django.contrib import messages
 import csv
 import codecs
-import logging
-
-logger = logging.getLogger(__name__)
 
 # Create your views here.
 
@@ -55,20 +52,22 @@ def add_programmes(request):
         #loop over the lines and save them in db. If error, store as string and then display
         for line in lines:
 
-            print("The value of line is ", line)  
-            fields = line.split(",")
-            data_dict = {}
-            #data_dict["anime_id"] = fields[0]
-            #data_dict["name"] = fields[1]
-            #data_dict["genre"] = fields[2]
-            #data_dict["types"] = fields[3]
-            #data_dict["episodes"] = fields[4]
-            #data_dict["rating"] = fields[5]
-            #data_dict["members"] = fields[6]
+            if len(line) > 0:
 
-            form = ProgrammeForm(data_dict) # CSVFileUploadForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
+                fields = line.split(",")
+                print("The value of fields is ", fields)  
+                data_dict = {}
+                #data_dict["anime_id"] = fields[0]
+                #data_dict["name"] = fields[1]
+                #data_dict["genre"] = fields[2]
+                #data_dict["types"] = fields[3]
+                #data_dict["episodes"] = fields[4]
+                #data_dict["rating"] = fields[5]
+                #data_dict["members"] = fields[6]
+
+                form = ProgrammeForm(data_dict) # CSVFileUploadForm(request.POST, request.FILES)
+                if form.is_valid():
+                    form.save()
 
         return render(request, 'animes/add.html', {
                 'CSVFileUploadForm': CSVFileUploadForm,
