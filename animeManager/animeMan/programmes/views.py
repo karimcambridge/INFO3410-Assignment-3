@@ -43,10 +43,10 @@ def list_programmes(request):
     for line in lines:                        
         fields = line.split(",")
         data_dict = {}
-        data_dict["name"] = fields[0]
-        data_dict["start_date_time"] = fields[1]
-        data_dict["end_date_time"] = fields[2]
-        data_dict["notes"] = fields[3]
+        data_dict["anime_id"] = fields[0]
+        data_dict["name"] = fields[1]
+        data_dict["genre"] = fields[2]
+        #data_dict["notes"] = fields[3]
 
         form = CSVFileUploadForm(fields) # CSVFileUploadForm(request.POST, request.FILES)
         if form.is_valid():
