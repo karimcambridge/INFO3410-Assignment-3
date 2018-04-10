@@ -139,3 +139,6 @@ try:
 except Exception as e:
     # in case of any error, pass silently.
     pass
+
+#Redirect to home URL after login
+LOGIN_REDIRECT_URL = '/'

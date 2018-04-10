@@ -1,9 +1,9 @@
 from django.shortcuts import render, reverse
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views import View 
+from django.http import HttpResponse, HttpResponseRedirect 
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 from .serializers import UserSerializer
+from django.views import View
 from .anime import Anime 
 from .forms import AnimeForm, CSVFileUploadForm
 from django.contrib import messages
@@ -60,24 +60,14 @@ def add_programmes(request):
 
             if len(line) > 0:
 
-<<<<<<< HEAD
                 print("line is ", line)
-#
-                form = ProgrammeForm(line) # CSVFileUploadForm(request.POST, request.FILES)
+
+                form = AnimeForm(line) # CSVFileUploadForm(request.POST, request.FILES)
                 if form.is_valid():
                     form.save()
 
         return render(request, 'animes/list.html')
-=======
-                form = AnimeForm(data_dict) # CSVFileUploadForm(request.POST, request.FILES)
-                if form.is_valid():
-                    form.save()
 
-        return render(request, 'animes/add.html', {
-                'CSVFileUploadForm': CSVFileUploadForm,
-                'ProgrammeForm': AnimeForm
-            })
->>>>>>> 42fde68dd80ede1e23551ab9f4dbffb5d0085d38
 
 class RecordView(View):
     """ Record view class """
