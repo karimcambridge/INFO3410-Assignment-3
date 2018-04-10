@@ -33,12 +33,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    {% for rec in animes %}
+                {% for rec in animes %}
+                    <tr>
                         <td>{{ rec }}</td>
                         <td>{{ rec.name }}</td>
-                    {% endfor %}
-                </tr>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     {% endif %}

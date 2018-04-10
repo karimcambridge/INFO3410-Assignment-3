@@ -1,7 +1,6 @@
 from django.db import models
 import uuid
 from django.db.models import (
-    UUIDField,
     CharField,
     TextField,
     IntegerField,
@@ -11,7 +10,7 @@ from django.db.models import (
 # Create your models here.
 
 class Anime(models.Model):
-    anime_id = UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
+    anime_id = CharField(max_length=12, primary_key=True, editable=True)
     name = CharField(max_length=100)
     genre = TextField()
     MOVIE = "Movie"
