@@ -12,7 +12,7 @@
     <h2>Sign Up</h2>
     <form action="{% url 'signup' %}" method="POST">
         {% csrf_token %}
-        {% render_form serializer template_pack='rest_framework/vertical' %}
+        {% render_form serializer %}
         <button type="submit" class="signUp btn">Sign Up</button>
     </form>
 </body>

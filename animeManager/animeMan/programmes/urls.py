@@ -6,6 +6,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
+router.register(r'signup', views.SignUpViewSet)
 
 urlpatterns = [
     path('', list_programmes),
