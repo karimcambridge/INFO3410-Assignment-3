@@ -15,7 +15,7 @@ class Programme(models.Model):
     """ Programme class """
     anime_id = UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = CharField(max_length=100)
-    genre = TextField()
+    genre = CharField(max_length=256)
     MOVIE = "Movie"
     OVA = "OVA"
     TELEVISION = "TV"
@@ -30,10 +30,9 @@ class Programme(models.Model):
     members = IntegerField()
     #icon = ImageField(null=True, upload_to='img/profiles', verbose_name="Anime Photo")
 
-class Meta:
-    """ Meta data class """
-    model = Programme
-    ordering = ('name',)
+    class Meta:
+        """ Meta data class """
+        ordering = ('name',)
 
 
 #class ProgrammesCsvModel(CsvDbModel):
