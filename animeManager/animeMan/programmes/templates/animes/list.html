@@ -8,10 +8,12 @@
 </head>
 <body>
     <h2>Anime Programme List</h2>
-    <ul>
-        {% for rec in animes %}
-            <li>{{ rec.name }}</li>
-        {% endfor %}
-    </ul>
+    {% if animes %}
+        <ul>
+            {% for rec in animes %}
+                <li>{{ rec.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>

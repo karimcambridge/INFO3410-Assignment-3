@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from .models import Programmes
+from .models import Programme
 
 class ProgrammeForm(ModelForm):
     class Meta:
-        model = Programmes
+        model = Programme
         exclude = ()

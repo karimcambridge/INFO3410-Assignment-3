@@ -9,10 +9,11 @@ from django.db.models import (
     DateTimeField,
     ImageField
 )
+from adaptor.model import CsvDbModel
 # Create your models here.
 
-class Programmes(models.Model):
-    """ Programmes class """
+class Programme(models.Model):
+    """ Programme class """
     anime_id = UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = CharField(max_length=100)
     genre = TextField()
@@ -32,5 +33,14 @@ class Programmes(models.Model):
 
 class Meta:
     """ Meta data class """
-    model = Programmes
+    model = Programme
     ordering = ('name',)
+
+
+class ProgrammesModel(CsvDbModel):
+    """ ProgrammesModel CSV class """
+    class Meta:
+        """ Meta data class """
+        delimiter = ","
+        dbModel = Programme
+    
