@@ -25,18 +25,29 @@
     <br/>
 
     {% if animes %}
-        <table>
-            <thead>
+        <table class='table table-striped table-bordered table-hover'>
+            <caption>List of anime programmes</caption>
+            <thead class='thead-dark'>
                 <tr>
-                    <th>Anime ID</th>
-                    <th>Name</th>
+                    <th scope='col'>Anime ID</th>
+                    <th scope='col'>Name</th>
+                    <th scope='col'>Genre</th>
+                    <th scope='col'>Type</th>
+                    <th scope='col'>Episodes</th>
+                    <th scope='col'>Members</th>
                 </tr>
             </thead>
             <tbody>
                 {% for rec in animes %}
                     <tr>
-                        <td>{{ rec }}</td>
+                        <td scope='row'>{{ rec.anime_id }}</td>
                         <td>{{ rec.name }}</td>
+                        <td>{{ rec.genre }}</td>
+                        <td>{{ rec.type }}</td>
+                        <td>{{ rec.episodes }}</td>
+                        <td>{{ rec.rating }}</td>
+                        <td>{{ rec.members }}</td>
+                        <td>{{ rec.icon }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
