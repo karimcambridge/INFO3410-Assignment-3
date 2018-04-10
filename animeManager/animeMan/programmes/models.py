@@ -9,7 +9,6 @@ from django.db.models import (
     DateTimeField,
     ImageField
 )
-from adaptor.model import CsvDbModel
 # Create your models here.
 
 class Programme(models.Model):
@@ -37,10 +36,11 @@ class Meta:
     ordering = ('name',)
 
 
-class ProgrammesCsvModel(CsvDbModel):
-    """ ProgrammesModel CSV class """
-    class Meta:
-        """ Meta data class """
-        delimiter = ","
-        dbModel = Programme
-        has_header = True
+#class ProgrammesCsvModel(CsvDbModel):
+#    """ ProgrammesModel CSV class """
+#    class Meta:
+#        """ Meta data class """
+#        delimiter = ","
+#        dbModel = Programme
+#        has_header = True
+#

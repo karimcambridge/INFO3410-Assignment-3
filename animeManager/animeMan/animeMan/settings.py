@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     # third party
 
+    'adaptor',
+
     # internal
 
     'programmes',

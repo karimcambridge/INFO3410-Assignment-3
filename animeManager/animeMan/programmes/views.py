@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
-from .models import Programme, ProgrammesCsvModel
+from .models import Programme
 from .forms import ProgrammeForm
 
 # Create your views here.
