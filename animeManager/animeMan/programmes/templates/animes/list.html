@@ -57,6 +57,33 @@
         </table>
     {% endif %}
 
+<!-- Modal -->
+<div class="modal fade" id="modalAnime" tabindex="-1" role="dialog" aria-labelledby="modalAnimeLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAnimeLabel">Anime Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="animeId"></div>
+                <div id="animeName"></div>
+                <div id="animeGenre"></div>
+                <div id="animeType"></div>
+                <div id="animeEpisodes"></div>
+                <div id="animeRating"></div>
+                <div id="animeMembers"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     $(document).ready(function() {
         $('#modalAnime').on('show.bs.modal', function(event){
@@ -86,31 +113,7 @@
     });
 </script>
 
-<!-- Modal -->
-<div class="modal fade" id="modalAnime" tabindex="-1" role="dialog" aria-labelledby="modalAnimeLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalAnimeLabel">Anime Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="animeId"></div>
-                <div id="animeName"></div>
-                <div id="animeGenre"></div>
-                <div id="animeType"></div>
-                <div id="animeEpisodes"></div>
-                <div id="animeRating"></div>
-                <div id="animeMembers"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
