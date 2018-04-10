@@ -76,7 +76,7 @@ class RecordView(View):
         anime_form = AnimeForm()
         return render(request, 'animes/add.html', {
             'CSVFileUploadForm': CSVFileUploadForm,
-            'AnimeForm': AnimeForm
+            'AnimeForm': anime_form
         })
 
     def post(self, request):
