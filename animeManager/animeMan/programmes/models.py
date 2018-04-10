@@ -12,6 +12,7 @@ from django.db.models import (
 # Create your models here.
 
 class Programmes(models.Model):
+    """ Programmes class """
     anime_id = UUIDField(primary_key=True, default=uuid.uuid4, editable=True)
     name = CharField(max_length=100)
     genre = TextField()
@@ -30,5 +31,6 @@ class Programmes(models.Model):
     #icon = ImageField(null=True, upload_to='img/profiles', verbose_name="Anime Photo")
 
 class Meta:
+    """ Meta data class """
     model = Programmes
     ordering = ('name',)
