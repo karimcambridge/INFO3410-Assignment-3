@@ -133,12 +133,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# importing logger settings
-try:
-    from .logger_settings import *
-except Exception as e:
-    # in case of any error, pass silently.
-    pass
-
 #Redirect to home URL after login
 LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = '/admin/'

@@ -1,14 +1,10 @@
+import csv
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render, reverse
-from rest_framework import viewsets
-from django.http import HttpResponse, HttpResponseRedirect 
-from django.contrib.auth.models import User
-from .serializers import UserSerializer, SignUpSerializer
-from django.views import View
+from django.shortcuts import render, reverse, redirect
 from .anime import Anime
 from .forms import AnimeForm, CSVFileUploadForm
-import csv
 from io import StringIO
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -19,9 +15,9 @@ def list_programmes(request):
     animes_dict = Anime.objects.all()
     return render(request, 'animes/list.html', {'animes': animes_dict})
 
+@login_required(redirect_field_name='/')
 def add_programmes(request):
     """ Lists all programmes on the main page """
-
     if request.method == "GET":
         return render(request, 'animes/add.html', {
             'CSVFileUploadForm': CSVFileUploadForm,
@@ -62,34 +58,3 @@ def add_programmes(request):
 
             animes_dict = Anime.objects.all()
             return render(request, 'animes/list.html', {'animes': animes_dict})
-
-
-class RecordView(View):
-    """ Record view class """
-    def get(self, request):
-        """ Record view get Mutator """
-        anime_form = AnimeForm()
-        return render(request, 'animes/add.html', {
-            'CSVFileUploadForm': CSVFileUploadForm,
-            'AnimeForm': AnimeForm
-        })
-
-    def post(self, request):
-        """ Record view post """
-        anime_form = AnimeForm(request.POST, request.FILES)
-        if anime_form.is_valid():
-            anime_form.save()
-            return HttpResponseRedirect("/")
-
-        return render(request, 'animes/add.html', {
-            'CSVFileUploadForm': CSVFileUploadForm,
-            'AnimeForm': AnimeForm
-        })
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-class SignUpViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = SignUpSerializer

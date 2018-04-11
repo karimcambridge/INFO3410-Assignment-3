@@ -24,35 +24,43 @@
         </div>
     </nav>
     <br/>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="row">
-            <div class="form-group col">
-                <label for="CSVFileUploadForm">Anime File Input: </label>
-                {{ CSVFileUploadForm.file }}
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="form-group col">
+                    <label for="CSVFileUploadForm">Anime File Input: </label>
+                    {{ CSVFileUploadForm.file }}
+                </div>
             </div>
-        </div>
-        {% if animes %}
-            <button type="submit" class="btn btn-secondary">Upload CSV File</button><br/>
-        {% else %}
-            <button type="submit" class="btn btn-primary">Upload CSV File</button><br/>
-        {% endif %}
-    </form>
-    <br/>
-    <form method="post">
-        {% csrf_token %}
-        <div class="row">
-        {% for field in AnimeForm %}
-            <div class="form-group col">
-                {{ field.errors }}
-                {{ field.label_tag }} {{ field }}
-                {% if field.help_text %}
-                    <p class="help">{{ field.help_text|safe }}</p>
-                {% endif %}
+            {% if animes %}
+                <button type="submit" class="btn btn-secondary">Upload CSV File</button><br/>
+            {% else %}
+                <button type="submit" class="btn btn-primary">Upload CSV File</button><br/>
+            {% endif %}
+        </form>
+        <form method="post">
+            {% csrf_token %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>Add a record to the Anime Database below:</thead>
+                    <tbody>
+                        <div class="form-group">
+                            {% for field in AnimeForm %}
+                                    <tr><td>{{ field.errors }}
+                                    {{ field.label_tag }} {{ field }}
+                                    {% if field.help_text %}
+                                        <p class="help">{{ field.help_text|safe }}</p>
+                                    {% endif %}</td></tr>
+                            {% endfor %}
+                        </div>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Add Record</button>
+                </div>
             </div>
-        {% endfor %}
-        </div>
-        <button type="submit" class="btn btn-primary">Add Record</button>
-    </form>
+        </form>
+    </div>
 </body>
 </html>
