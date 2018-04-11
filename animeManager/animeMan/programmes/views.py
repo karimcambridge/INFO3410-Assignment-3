@@ -1,8 +1,8 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, reverse
+from rest_framework import viewsets
 from django.http import HttpResponse, HttpResponseRedirect 
 from django.contrib.auth.models import User
-from rest_framework import viewsets
 from .serializers import UserSerializer, SignUpSerializer
 from django.views import View
 from .anime import Anime
@@ -17,9 +17,6 @@ IMG_UPLOAD_PATH = 'img/profiles/'
 def list_programmes(request):
     """ Lists all programmes on the main page """
     animes_dict = Anime.objects.all()
-    paginator = Paginator(animes_dict, 25)
-    page = request.GET.get('page', 1)
-    animes = paginator.get_page(page)
     return render(request, 'animes/list.html', {'animes': animes_dict})
 
 def add_programmes(request):

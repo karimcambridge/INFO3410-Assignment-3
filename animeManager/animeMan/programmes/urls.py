@@ -1,8 +1,9 @@
 from django.urls import path
 from django.conf.urls import url, include 
 from . import views
-from .views import list_programmes, add_programmes, RecordView
 from rest_framework import routers
+from .views import list_programmes, add_programmes, RecordView
+
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)

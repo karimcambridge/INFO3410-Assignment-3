@@ -35,11 +35,12 @@
                     <th scope='col'>Anime ID</th>
                     <th scope='col'>Name</th>
                     <th scope='col'>Type</th>
+                    <th scope='col'>Icon</th>
                     <!-- <th scope='col'>Genre</th>
                     <th scope='col'>Episodes</th>
                     <th scope='col'>Rating</th>
                     <th scope='col'>Members</th>
-                    <th scope='col'>Icon</th> -->
+                     -->
                 </tr>
             </thead>
             <tbody>
@@ -52,33 +53,35 @@
                     <td>{{ rec.episodes }}</td>
                     <td>{{ rec.rating }}</td>
                     <td>{{ rec.members }}</td> -->
-                    <td><img src="{{ rec.icon }}"</td>
+                    <td><img src="{{ rec.icon }}"></td>
                 </tr>
             {% endfor %}
             </tbody>
-
-             <!-- Pagination -->
-    <div class="pagination">
-        <span class="step-links">
-            {% if animes.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{
-                    animes.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ animes.number }} of {{ animes.paginator.num_pages }}.
-            </span>
-
-            {% if animes.has_next %}
-                <a href="?page={{ animes.next_page_number }}">next</a>
-                <a href="?page={{ animes.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
         </table>
+
+        <!-- Pagination -->
+        <!-- {% if animes.has_other_pages %}
+            <ul class="pagination">
+                {% if animes.has_previous %}
+                    <li><a href="?page={{ animes.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in animes.paginator.page_range %}
+                    {% if animes.number == i %}
+                        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                    {% else %}
+                        <li><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if animes.has_next %}
+                    <li><a href="?page={{ animes.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                    <li class="disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+        {% endif %} -->
     {% endif %}
-    
     
     <!-- Modal -->
     <div class="modal fade" id="modalAnime" tabindex="-1" role="dialog" aria-labelledby="modalAnimeLabel" aria-hidden="true">
