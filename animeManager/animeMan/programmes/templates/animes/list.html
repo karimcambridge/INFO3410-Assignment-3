@@ -34,12 +34,12 @@
                 <tr>
                     <th scope='col'>Anime ID</th>
                     <th scope='col'>Name</th>
-                    <th scope='col'>Genre</th>
                     <th scope='col'>Type</th>
+                    <!-- <th scope='col'>Genre</th>
                     <th scope='col'>Episodes</th>
                     <th scope='col'>Rating</th>
                     <th scope='col'>Members</th>
-                    <th scope='col'>Icon</th>
+                    <th scope='col'>Icon</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -47,18 +47,39 @@
                 <tr data-toggle="modal" data-target="#modalAnime" data-id='{{ rec.anime_id }}' data-name='{{ rec.name }}' data-genre='{{ rec.genre }}' data-type='{{ rec.type }}' data-episodes='{{ rec.episodes }}' data-rating='{{ rec.rating }}' data-members='{{ rec.members }}' data-icon='{{ rec.icon }}'>
                     <td scope='row'>{{ rec.anime_id }}</td>
                     <td>{{ rec.name }}</td>
-                    <td>{{ rec.genre }}</td>
-                    <td>{{ rec.type }}</td>
+                    <td>{{ rec.types }}</td>
+                    <!-- <td>{{ rec.genre }}</td>
                     <td>{{ rec.episodes }}</td>
                     <td>{{ rec.rating }}</td>
-                    <td>{{ rec.members }}</td>
+                    <td>{{ rec.members }}</td> -->
                     <td><img src="{{ rec.icon }}"</td>
                 </tr>
             {% endfor %}
             </tbody>
+
+             <!-- Pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if animes.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{
+                    animes.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ animes.number }} of {{ animes.paginator.num_pages }}.
+            </span>
+
+            {% if animes.has_next %}
+                <a href="?page={{ animes.next_page_number }}">next</a>
+                <a href="?page={{ animes.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
         </table>
     {% endif %}
-
+    
+    
     <!-- Modal -->
     <div class="modal fade" id="modalAnime" tabindex="-1" role="dialog" aria-labelledby="modalAnimeLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -93,7 +114,7 @@
                 animeId = $(event.relatedTarget).data("id");
                 name = $(event.relatedTarget).data("name");
                 genre = $(event.relatedTarget).data("genre");
-                type = $(event.relatedTarget).data("type");
+                type = $(event.relatedTarget).data("types");
                 episodes = $(event.relatedTarget).data("episodes");
                 rating = $(event.relatedTarget).data("rating");
                 members = $(event.relatedTarget).data("members");
