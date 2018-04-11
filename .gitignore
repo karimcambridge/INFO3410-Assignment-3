@@ -2,6 +2,10 @@
 
 .vscode\*
 
+# SQLite
+
+db.sqlite3
+
 # Created by https://www.gitignore.io
 
 ### OSX ###
@@ -87,7 +91,3 @@ target/
 *.pyc
 __pycache__/
 local_settings.py
-
-# SQLite
-
-db.sqlite3
