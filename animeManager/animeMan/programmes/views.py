@@ -9,11 +9,16 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 IMG_UPLOAD_PATH = 'img/profiles/'
+ANIME_PER_PAGE = 1000
 
 def list_programmes(request):
     """ Lists all programmes on the main page """
     animes_dict = Anime.objects.all()
-    return render(request, 'animes/list.html', {'animes': animes_dict})
+    paginator = Paginator(animes_dict, ANIME_PER_PAGE)
+
+    page = request.GET.get('page')
+    animes = paginator.get_page(page)
+    return render(request, 'animes/list.html', {'animes': animes})
 
 @login_required(redirect_field_name='/')
 def add_programmes(request):
@@ -31,8 +36,7 @@ def add_programmes(request):
             anime = Anime(data['anime_id'], data['name'], data['genre'], data['types'], data['episodes'], data['rating'], data['members'], IMG_UPLOAD_PATH + data['icon'])
             anime.save()
 
-            animes_dict = Anime.objects.all()
-            return render(request, 'animes/list.html', {'animes': animes_dict})
+            return list_programmes(request)
         else:
             file = request.FILES["file"]
 
@@ -56,5 +60,4 @@ def add_programmes(request):
                     anime = Anime(row['anime_id'], row['name'], row['genre'], row['type'], row['episodes'], row['rating'], row['members'])
                     anime.save()
 
-            animes_dict = Anime.objects.all()
-            return render(request, 'animes/list.html', {'animes': animes_dict})
+            return list_programmes(request)

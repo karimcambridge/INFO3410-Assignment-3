@@ -62,30 +62,37 @@
                 {% endfor %}
                 </tbody>
             </table>
-
-            <!-- Pagination -->
-            <!-- {% if animes.has_other_pages %}
-                <ul class="pagination">
-                    {% if animes.has_previous %}
-                        <li><a href="?page={{ animes.previous_page_number }}">&laquo;</a></li>
-                    {% else %}
-                        <li class="disabled"><span>&laquo;</span></li>
-                    {% endif %}
-                    {% for i in animes.paginator.page_range %}
-                        {% if animes.number == i %}
-                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-                        {% else %}
-                            <li><a href="?page={{ i }}">{{ i }}</a></li>
-                        {% endif %}
-                    {% endfor %}
-                    {% if animes.has_next %}
-                        <li><a href="?page={{ animes.next_page_number }}">&raquo;</a></li>
-                    {% else %}
-                        <li class="disabled"><span>&raquo;</span></li>
-                    {% endif %}
-                </ul>
-            {% endif %} -->
         {% endif %}
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            {% if animes.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                      <span aria-hidden="true">&laquo; first</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ animes.previous_page_number }}" aria-label="Previous">
+                      <span>Previous</span>
+                    </a>
+                </li>
+            {% endif %}
+            <li class="page-item"><a class="page-link">{{ animes.number }} / {{ animes.paginator.num_pages }}</a></li>
+
+            {% if animes.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ animes.next_page_number }}" aria-label="Next">
+                      <span>Next</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ animes.paginator.num_pages }}" aria-label="Last">
+                      <span aria-hidden="true">&raquo; last</span>
+                    </a>
+                </li>
+            {% endif %}
+          </ul>
+        </nav>
         
         <!-- Modal -->
         <div class="modal fade" id="modalAnime" tabindex="-1" role="dialog" aria-labelledby="modalAnimeLabel" aria-hidden="true">
