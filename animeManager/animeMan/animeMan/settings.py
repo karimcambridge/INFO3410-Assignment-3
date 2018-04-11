@@ -137,3 +137,8 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 
 LOGIN_URL = '/admin/'
+
+MEDIA_URL = '/profiles/'
+MEDIA_ROOT = 'static/profiles/'
+
+ANIME_PER_PAGE = 1000

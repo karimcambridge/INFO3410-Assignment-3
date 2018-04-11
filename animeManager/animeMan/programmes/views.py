@@ -5,19 +5,19 @@ from .anime import Anime
 from .forms import AnimeForm, CSVFileUploadForm
 from io import StringIO
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 # Create your views here.
 
-IMG_UPLOAD_PATH = 'img/profiles/'
-ANIME_PER_PAGE = 1000
 
 def list_programmes(request):
     """ Lists all programmes on the main page """
     animes_dict = Anime.objects.all()
-    paginator = Paginator(animes_dict, ANIME_PER_PAGE)
+    paginator = Paginator(animes_dict, settings.ANIME_PER_PAGE)
 
     page = request.GET.get('page')
     animes = paginator.get_page(page)
+    print(settings.MEDIA_ROOT)
     return render(request, 'animes/list.html', {'animes': animes})
 
 @login_required(redirect_field_name='/')
@@ -33,10 +33,10 @@ def add_programmes(request):
             data = request.POST
             print(data)
 
-            anime = Anime(data['anime_id'], data['name'], data['genre'], data['types'], data['episodes'], data['rating'], data['members'], IMG_UPLOAD_PATH + data['icon'])
+            anime = Anime(data['anime_id'], data['name'], data['genre'], data['types'], data['episodes'], data['rating'], data['members'], settings.MEDIA_ROOT + data['icon'])
             anime.save()
 
-            return list_programmes(request)
+            return redirect(list_programmes)
         else:
             file = request.FILES["file"]
 
@@ -60,4 +60,14 @@ def add_programmes(request):
                     anime = Anime(row['anime_id'], row['name'], row['genre'], row['type'], row['episodes'], row['rating'], row['members'])
                     anime.save()
 
-            return list_programmes(request)
+            return redirect(list_programmes)
+
+@login_required(redirect_field_name='/')
+def detail_programmes(request):
+    """ Lists all programmes on the main page """
+    animes_dict = Anime.objects.all()
+    paginator = Paginator(animes_dict, settings.ANIME_PER_PAGE)
+
+    page = request.GET.get('page')
+    animes = paginator.get_page(page)
+    return render(request, 'animes/list.html', {'animes': animes})

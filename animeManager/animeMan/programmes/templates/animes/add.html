@@ -13,17 +13,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Anime Upload</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="list.html" class="btn btn-info navbar-btn"> Anime Listing</a></li>
+    <div class="container-fluid-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="#">Anime List</a>
+          <div class="collapse navbar-collapse">
+            {% if request.user.is_authenticated %}
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Hi {{ request.user.username }}</a>
+              </li>
             </ul>
-        </div>
-    </nav>
-    <br/>
+            {% endif %}
+            <ul class="navbar-nav">
+                    <li class="nav-item"><button class="btn btn-info"><a class="text-white" href="list.html">Anime Listing</a></button></li>
+                    <li class="nav-item"><button class="btn btn-warning"><a class="text-white" href="admin/">Admin Panel</a></button></li>
+            </ul>
+          </div>
+        </nav>
+    </div>
     <div class="container">
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
