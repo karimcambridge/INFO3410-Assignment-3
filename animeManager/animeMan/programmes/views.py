@@ -65,12 +65,19 @@ def add_programmes(request):
 #@login_required(redirect_field_name='/')
 def detail_programmes(request):
     """ Lists selected programme from the main page """
-    if request.method == 'POST':
-        anime_id = request.POST.get('anime_id')
+    animes_dict = Anime.objects.all()
+    paginator = Paginator(animes_dict, settings.ANIME_PER_PAGE)
+
+    page = request.GET.get('page')
+    animes = paginator.get_page(page)
+    print(settings.MEDIA_ROOT)
+
+    if request.method == 'GET':
+        anime_id = request.GET.get('anime_id')
         return redirect(reverse('details', args=(anime_id,)))
        
-    return render(request, 'animes/list.html')
+    return render(request, 'animes/list.html', {'animes': animes})
     
-    #animes_dict = Anime.objects.all()
+    
     
    # return render(request, 'animes/details.html', {'animes': animes})
