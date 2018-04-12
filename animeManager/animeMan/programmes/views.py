@@ -9,7 +9,6 @@ from django.conf import settings
 
 # Create your views here.
 
-
 def list_programmes(request):
     """ Lists all programmes on the main page """
     animes_dict = Anime.objects.all()

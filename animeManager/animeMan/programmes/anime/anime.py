@@ -8,6 +8,7 @@ from django.db.models import (
     ImageField
 )
 from django.conf import settings
+from django.contrib import admin
 
 # Create your models here.
 
@@ -35,3 +36,7 @@ class Anime(models.Model):
 class Meta:
     model = Anime 
     ordering = ('name',)
+
+class AnimeAdmin(admin.ModelAdmin):
+    list_max_show_all = 500
+    list_per_page = 200
