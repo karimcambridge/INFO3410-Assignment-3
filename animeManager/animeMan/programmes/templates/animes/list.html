@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,24 +14,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Anime List</a>
-            </div>
+    <div class="container-fluid-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="#">Anime List</a>
+          <div class="collapse navbar-collapse">
             {% if request.user.is_authenticated %}
-                <ul class="nav navbar-nav">
-                    <li><a href="add.html" class="btn btn-info navbar-btn">Upload / Add Records</a></li>
-                </ul>
-            {% else %}
-                <ul class="nav navbar-nav">
-                    <li><a href="admin" class="btn btn-danger navbar-btn">Log in</a></li>
-                </ul>
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Hi {{ request.user.username }}</a>
+              </li>
+            </ul>
             {% endif %}
-        </div>
-    </div>
-    </nav>
-    <div class="container">
+            <ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item"><button class="btn btn-info"><a class="text-white" href="add.html">Upload / Add Records</a></button></li>
+                    <li class="nav-item"><button class="btn btn-warning"><a class="text-white" href="admin/">Admin Panel</a></button></li>
+                {% else %}
+                    <li class="nav-item"><button class="btn btn-danger"><a class="text-white" href="admin/">Log in</a></button></li>
+                {% endif %}
+            </ul>
+          </div>
+        </nav>
         {% if animes %}
             <table class='table table-striped table-bordered table-hover'>
                 <caption>List of anime programmes. Click on a row to view its details.</caption>
@@ -40,6 +44,7 @@
                         <th scope='col'>Name</th>
                         <th scope='col'>Type</th>
                         <th scope='col'>Icon</th>
+                        <th scope='col'>Quick View</th>
                         <!-- <th scope='col'>Genre</th>
                         <th scope='col'>Episodes</th>
                         <th scope='col'>Rating</th>
@@ -49,15 +54,16 @@
                 </thead>
                 <tbody>
                 {% for rec in animes %}
-                    <tr data-toggle="modal" data-target="#modalAnime" data-id='{{ rec.anime_id }}' data-name='{{ rec.name }}' data-genre='{{ rec.genre }}' data-type='{{ rec.types }}' data-episodes='{{ rec.episodes }}' data-rating='{{ rec.rating }}' data-members='{{ rec.members }}' data-icon='{{ rec.icon }}'>
+                    <tr>
                         <td scope='row'>{{ rec.anime_id }}</td>
                         <td>{{ rec.name }}</td>
                         <td>{{ rec.types }}</td>
+                        <td><img src="{{ rec.icon }}" alt='' border='3' height='20' width='20'></td>
+                        <td class="text-center" data-toggle="modal" data-target="#modalAnime" data-id='{{ rec.anime_id }}' data-name='{{ rec.name }}' data-genre='{{ rec.genre }}' data-type='{{ rec.types }}' data-episodes='{{ rec.episodes }}' data-rating='{{ rec.rating }}' data-members='{{ rec.members }}' data-icon='{{ rec.icon }}'><button type="submit" class="btn btn-info">View</button></td>
                         <!-- <td>{{ rec.genre }}</td>
                         <td>{{ rec.episodes }}</td>
                         <td>{{ rec.rating }}</td>
                         <td>{{ rec.members }}</td> -->
-                        <td><img src="{{ rec.icon }}"></td>
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -112,6 +118,7 @@
                         <div id="animeEpisodes"></div>
                         <div id="animeRating"></div>
                         <div id="animeMembers"></div>
+                        <div id="animeIcon"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -132,6 +139,7 @@
                 episodes = $(event.relatedTarget).data("episodes");
                 rating = $(event.relatedTarget).data("rating");
                 members = $(event.relatedTarget).data("members");
+                icon = $(event.relatedTarget).data("icon");
 
                 $("#animeId").html('Anime ID: ' + animeId);
                 $("#animeName").html('Name: ' + name);
@@ -140,6 +148,7 @@
                 $("#animeEpisodes").html('Episodes: ' + episodes);
                 $("#animeRating").html('Rating: ' + rating);
                 $("#animeMembers").html('Members: ' + members);
+                $("#animeIcon").html('<img src="' + icon + '">');
             });
 
             $('#modalAnime').on('shown.bs.modal', function () {
