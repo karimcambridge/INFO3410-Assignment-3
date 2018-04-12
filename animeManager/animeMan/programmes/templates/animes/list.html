@@ -146,7 +146,6 @@
             });
 
             $('#listTable tbody tr').click(function(event) {
-                console.log($(event.relatedTarget).data("href"));
                 window.location.href = 'details/' + $(event.relatedTarget).data("href");
             });
         });

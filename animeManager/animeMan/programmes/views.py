@@ -9,9 +9,9 @@ from django.conf import settings
 
 # Create your views here.
 
-def detail_view(request, uuid=1):
+def detail_view(request, id=1):
     """ Lists selected anime programme from the main page """
-    return render(request, 'animes/list.html', {'anime': uuid})
+    return render(request, 'animes/details.html', {'anime': id})
 
 def list_programmes(request):
     """ Lists all programmes on the main page """
