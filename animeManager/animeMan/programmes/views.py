@@ -68,9 +68,9 @@ def detail_programmes(request):
     context = RequestContext(request)
     args = {}
     args.update(csrf(request))
-    if request. method == 'POST':
+    if request.method == 'POST':
         anime_id = request.POST.get('anime_id')
-        return redirect(reverse('details', args=(anime_id,))
+        return redirect(reverse('details', args=(anime_id,)))
     else:
         args ={}
         args.update(csrf(request))
