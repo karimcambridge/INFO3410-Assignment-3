@@ -10,6 +10,7 @@ urlpatterns = [
     path('list.html', list_programmes),
     path('add', add_programmes),
     path('add.html', add_programmes),
-    path('detail', detail_programmes),
-    path('detail.html', detail_programmes),
+    url(r'^<anime_id>/', detail_programmes, name='detail_programme'),
+    path('details', detail_programmes),
+    path('details.html', detail_programmes),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

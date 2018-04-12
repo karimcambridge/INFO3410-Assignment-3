@@ -10,17 +10,55 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Anime Details</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="add.html">Upload</a></li>
-            <li><a href="list.html">Anime List</a></li>
-        </ul>
+    <div class="container-fluid-lg">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+          <a class="navbar-brand" href="#">Anime List</a>
+          <div class="collapse navbar-collapse">
+            {% if request.user.is_authenticated %}
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Hi {{ request.user.username }}</a>
+              </li>
+            </ul>
+            {% endif %}
+            <ul class="navbar-nav">
+                    <li class="nav-item"><button class="btn btn-info"><a class="text-white" href="list.html">Anime Listing</a></button></li>
+                    <li class="nav-item"><button class="btn btn-warning"><a class="text-white" href="admin/">Admin Panel</a></button></li>
+            </ul>
+          </div>
+        </nav>
     </div>
-</nav>
-    <br/>
+    {% if animes %}
+        <table class='table table-striped table-bordered table-hover'>
+            <caption>List of anime programmes. Click on a row to view its details.</caption>
+            <thead class='thead-dark'>
+                <tr>
+                    <th scope='col'>Anime ID</th>
+                    <th scope='col'>Name</th>
+                    <th scope='col'>Type</th>
+                    <th scope='col'>Genre</th>
+                    <th scope='col'>Episodes</th>
+                    <th scope='col'>Rating</th>
+                    <th scope='col'>Members</th>
+                    <th scope='col'>Icon</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rec in animes %}
+                    <tr>
+                        <td scope='row'>{{ rec.anime_id }}</td>
+                        <td>{{ rec.name }}</td>
+                        <td>{{ rec.types }}</td>
+                        <td>{{ rec.genre }}</td>
+                        <td>{{ rec.episodes }}</td>
+                        <td>{{ rec.rating }}</td>
+                        <td>{{ rec.members }}</td>
+                        <td><img src="{{ rec.icon }}" alt='' border='3' height='20' width='20'></td>
+                        <!-- <td class="text-center" data-toggle="modal" data-target="#modalAnime" data-id='{{ rec.anime_id }}' data-name='{{ rec.name }}' data-genre='{{ rec.genre }}' data-type='{{ rec.types }}' data-episodes='{{ rec.episodes }}' data-rating='{{ rec.rating }}' data-members='{{ rec.members }}' data-icon='{{ rec.icon }}'><button type="submit" class="btn btn-info">View</button></td> -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 </body>
 </html>
