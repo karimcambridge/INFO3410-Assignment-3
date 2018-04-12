@@ -9,6 +9,10 @@ from django.conf import settings
 
 # Create your views here.
 
+def detail_programmes(request):
+    """ Lists selected anime programme from the main page """
+    return render(request, 'animes/list.html')
+
 def list_programmes(request):
     """ Lists all programmes on the main page """
     animes_dict = Anime.objects.all()
@@ -60,23 +64,3 @@ def add_programmes(request):
                     anime.save()
 
             return redirect(list_programmes)
-
-#@login_required(redirect_field_name='/')
-def detail_programmes(request):
-    """ Lists selected programme from the main page """
-    animes_dict = Anime.objects.all()
-    paginator = Paginator(animes_dict, settings.ANIME_PER_PAGE)
-
-    page = request.GET.get('page')
-    animes = paginator.get_page(page)
-    print(settings.MEDIA_ROOT)
-
-    if request.method == 'GET':
-        anime_id = request.GET.get('anime_id')
-        return redirect(reverse('details', args=(anime_id,)))
-       
-    return render(request, 'animes/list.html', {'animes': animes})
-    
-    
-    
-   # return render(request, 'animes/details.html', {'animes': animes})

@@ -22,13 +22,13 @@
             </ul>
             {% endif %}
             <ul class="navbar-nav">
-                    <li class="nav-item"><button class="btn btn-info"><a class="text-white" href="list.html">Anime Listing</a></button></li>
-                    <li class="nav-item"><button class="btn btn-warning"><a class="text-white" href="admin/">Admin Panel</a></button></li>
+                <li class="nav-item"><button class="btn btn-info"><a class="text-white" href="list.html">Anime Listing</a></button></li>
+                <li class="nav-item"><button class="btn btn-warning"><a class="text-white" href="admin/">Admin Panel</a></button></li>
             </ul>
           </div>
         </nav>
     </div>
-    {% if animes %}
+    {% if anime %}
         <table class='table table-striped table-bordered table-hover'>
             <caption>List of anime programmes. Click on a row to view its details.</caption>
             <thead class='thead-dark'>
@@ -44,21 +44,19 @@
                 </tr>
             </thead>
             <tbody>
-                {% for rec in animes %}
-                    <tr>
-                        <td scope='row'>{{ rec.anime_id }}</td>
-                        <td>{{ rec.name }}</td>
-                        <td>{{ rec.types }}</td>
-                        <td>{{ rec.genre }}</td>
-                        <td>{{ rec.episodes }}</td>
-                        <td>{{ rec.rating }}</td>
-                        <td>{{ rec.members }}</td>
-                        <td><img src="{{ rec.icon }}" alt='' border='3' height='20' width='20'></td>
-                        <!-- <td class="text-center" data-toggle="modal" data-target="#modalAnime" data-id='{{ rec.anime_id }}' data-name='{{ rec.name }}' data-genre='{{ rec.genre }}' data-type='{{ rec.types }}' data-episodes='{{ rec.episodes }}' data-rating='{{ rec.rating }}' data-members='{{ rec.members }}' data-icon='{{ rec.icon }}'><button type="submit" class="btn btn-info">View</button></td> -->
-                    </tr>
-                {% endfor %}
+                <tr>
+                    <td scope='row'>{{ anime.anime_id }}</td>
+                    <td>{{ anime.name }}</td>
+                    <td>{{ anime.types }}</td>
+                    <td>{{ anime.genre }}</td>
+                    <td>{{ anime.episodes }}</td>
+                    <td>{{ anime.rating }}</td>
+                    <td>{{ anime.members }}</td>
+                    <td><img src="{{ anime.icon }}" alt='' border='3' height='20' width='20'></td>
+                </tr>
             </tbody>
         </table>
+        <button class="btn btn-success"><a class="text-white" href="list.html">Go back to main anime list</a></button>
     {% endif %}
 </body>
 </html>
