@@ -65,15 +65,10 @@ def add_programmes(request):
 #@login_required(redirect_field_name='/')
 def detail_programmes(request):
     """ Lists selected programme from the main page """
-    context = RequestContext(request)
-    args = {}
-    args.update(csrf(request))
     if request.method == 'POST':
         anime_id = request.POST.get('anime_id')
         return redirect(reverse('details', args=(anime_id,)))
-    else:
-        args ={}
-        args.update(csrf(request))
+       
     return render(request, 'animes/list.html')
     
     #animes_dict = Anime.objects.all()
