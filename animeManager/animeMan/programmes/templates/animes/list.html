@@ -47,7 +47,7 @@
                 </thead>
                 <tbody>
                 {% for rec in animes %}
-                    <tr class="clickable-row" data-href='details/{{ rec.anime_id }}'>
+                    <tr class="clickable-row"> <!-- onclick="details/{{ rec.anime_id }}" -->
                         <td scope='row'>{{ rec.anime_id }}</td>
                         <td>{{ rec.name }}</td>
                         <td>{{ rec.types }}</td>
@@ -143,10 +143,6 @@
             $('#modalAnime').on('shown.bs.modal', function () {
                 $('#modalAnime').focus();
                 console.log("shown");
-            });
-
-            $('#listTable tbody tr').click(function(event) {
-                window.location.href = 'details/' + $(event.relatedTarget).data("href");
             });
         });
     </script>
